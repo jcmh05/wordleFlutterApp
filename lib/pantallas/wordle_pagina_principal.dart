@@ -15,7 +15,7 @@ class _WordleAppPrincipalState extends State<WordlePaginaPrincipal> {
   @override
   Widget build( BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Wordle App"),),
+      appBar: AppBar(title: Text("Prueba"),),
       body: Center(),
     );
   }
