@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import '../componentes/componentes.dart';
 
 class WordlePaginaPrincipal extends StatefulWidget{
 
@@ -15,8 +15,14 @@ class _WordleAppPrincipalState extends State<WordlePaginaPrincipal> {
   @override
   Widget build( BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Prueba"),),
-      body: Center(),
+      appBar: AppBar(title: Text("Wordle"),),
+      body: Keyboard(),
+      //Cajón lateral
+      drawer: Drawer(
+        child: SafeArea(
+          child: Text("como cuando te pasa")
+        ),
+      ),
     );
   }
 
