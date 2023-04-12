@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:wordle/componentes/grids_superiores.dart';
 import '../componentes/componentes.dart';
 
 class PantallaJuego extends StatefulWidget{
@@ -30,6 +29,7 @@ class _PantallaJuegoState extends State<PantallaJuego> {
 
     return Column(
       children: [
+        //Matriz de casillas
         GridsSuperiores(),
         //Prueba de teclado
         SizedBox(height: 15.0),

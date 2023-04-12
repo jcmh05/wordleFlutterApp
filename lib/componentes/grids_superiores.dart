@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:wordle/componentes/casilla_de_letra.dart';
+import 'package:wordle/componentes/componentes.dart';
+
 
 const filas=6;
 const tam_palabra=5;
