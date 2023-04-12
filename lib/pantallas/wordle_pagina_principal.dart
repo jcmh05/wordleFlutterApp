@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../componentes/componentes.dart';
+import 'package:wordle/pantallas/pantallas.dart';
 
 class WordlePaginaPrincipal extends StatefulWidget{
 
@@ -16,13 +16,16 @@ class _WordleAppPrincipalState extends State<WordlePaginaPrincipal> {
   Widget build( BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Wordle"),),
-      body: Keyboard(),
+      body: PantallaJuego(),
+
       //Cajón lateral
       drawer: Drawer(
         child: SafeArea(
-          child: Text("como cuando te pasa")
+            child: Text("como cuando te pasa")
         ),
       ),
+
+
     );
   }
 

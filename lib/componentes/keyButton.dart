@@ -2,15 +2,19 @@ import 'package:flutter/material.dart';
 
 class KeyButton extends StatefulWidget{
   final String letter;
-  const KeyButton({Key? key, required this.letter}) : super( key: key);
+  final Function(String) TeclaPulsada;
+
+  const KeyButton({Key? key, required this.letter, required this.TeclaPulsada}) : super( key: key);
 
   @override
-  State<KeyButton> createState() => _KeyButtonState(letter);
+  State<KeyButton> createState() => _KeyButtonState(letter,TeclaPulsada);
 }
 
 class _KeyButtonState extends State<KeyButton> {
   String letter;
-  _KeyButtonState(this.letter);
+  final Function(String) TeclaPulsada;
+
+  _KeyButtonState(this.letter, this.TeclaPulsada);
 
   @override void initState() {
     // TODO: implement initState
@@ -41,7 +45,7 @@ class _KeyButtonState extends State<KeyButton> {
             padding: MaterialStateProperty.all<EdgeInsets?>(const EdgeInsets.all(0)),
           ),
           onPressed: (){
-            //Acción del botón por poner
+            TeclaPulsada(letter);
           }),
     );
   }
