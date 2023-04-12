@@ -21,7 +21,7 @@ class _WordleAppPrincipalState extends State<WordlePaginaPrincipal> {
       //Cajón lateral
       drawer: Drawer(
         child: SafeArea(
-          child: Text("como cuando te pasa")
+            child: Text("como cuando te pasa")
         ),
       ),
 

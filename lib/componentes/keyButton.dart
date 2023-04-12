@@ -24,11 +24,19 @@ class _KeyButtonState extends State<KeyButton> {
   @override
   Widget build(BuildContext context) {
     return ConstrainedBox(
-      constraints: BoxConstraints(
+      constraints: const BoxConstraints(
         maxHeight: 50,
         maxWidth: 35,
       ),
       child: ElevatedButton(
+          style: ButtonStyle( //Estilo para el botón
+            backgroundColor: MaterialStateProperty.all<Color>(Colors.grey),
+            shape: MaterialStateProperty.all<OutlinedBorder?>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0))),
+            padding: MaterialStateProperty.all<EdgeInsets?>(const EdgeInsets.all(0)),
+          ),
+          onPressed: (){
+            TeclaPulsada(letter);
+          },
           child: Center(
             child: Text(
               letter,//Letra que se mostrará en el botón
@@ -38,15 +46,7 @@ class _KeyButtonState extends State<KeyButton> {
                 color: Colors.grey.shade800,
               ),
             ),
-          ),
-          style: ButtonStyle( //Estilo para el botón
-            backgroundColor: MaterialStateProperty.all<Color>(Colors.grey),
-            shape: MaterialStateProperty.all<OutlinedBorder?>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0))),
-            padding: MaterialStateProperty.all<EdgeInsets?>(const EdgeInsets.all(0)),
-          ),
-          onPressed: (){
-            TeclaPulsada(letter);
-          }),
+          )),
     );
   }
 
