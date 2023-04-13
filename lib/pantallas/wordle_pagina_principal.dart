@@ -19,26 +19,40 @@ class _WordleAppPrincipalState extends State<WordlePaginaPrincipal> {
       theme: WordleTema.temaClaro ? WordleTema.claro() : WordleTema.oscuro(),
       home: Scaffold(
         appBar: AppBar(
-          title: Text("WORDLE"),
+          title: Row( //Fila que contendrá el botón de retroceso y logo
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              IconButton(
+                icon: Icon(Icons.arrow_back),
+                onPressed: () {
+                  // Acción a realizar al presionar el botón de retroceso
+                },
+              ),
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 35.0,vertical: 25.0),
+                  child: Image.asset(
+                    'assets/logo2.png',
+                    fit: BoxFit.contain,
+                  ),
+                ),
+              ),
+            ],
+          ),
           toolbarHeight: 72.0,
           elevation: 0.0,
-          centerTitle: true, // Establecer el título centrado
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back),
-            onPressed: () {
-              // Acción a realizar al presionar el botón de búsqueda
-            },
-          ),
+          centerTitle: true,
           actions: [
             IconButton(
               icon: WordleTema.temaClaro ? Icon(Icons.nightlight_outlined) : Icon(Icons.nightlight),
               onPressed: () {
-                WordleTema.cambiarTema(); // Actualiza el tema al presionar el botón
+                WordleTema.cambiarTema();
                 setState(() {});
               },
             ),
           ],
         ),
+
         body: PantallaJuego(),
       ),
     );
