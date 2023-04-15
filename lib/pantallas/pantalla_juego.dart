@@ -1,44 +1,62 @@
 import 'package:flutter/material.dart';
-import '../componentes/componentes.dart';
+import 'package:wordle/pantallas/pantallas.dart';
+import 'package:wordle/componentes/componentes.dart';
 
-class PantallaJuego extends StatefulWidget{
+class WordlePaginaPrincipal extends StatefulWidget{
 
-  const PantallaJuego({Key? key}) : super(key: key);
+  const WordlePaginaPrincipal({Key? key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _PantallaJuegoState();
+  State<StatefulWidget> createState() => _WordleAppPrincipalState();
 
 }
 
-class _PantallaJuegoState extends State<PantallaJuego> {
-
-  String teclasPulsadas = " ";
-
+class _WordleAppPrincipalState extends State<WordlePaginaPrincipal> {
 
   @override
   Widget build( BuildContext context) {
-    final teclaPulsada = (String tecla) {
-      setState(() {
-        if( tecla == "BORRAR"){
-          teclasPulsadas = " ";
-        }else{
-          teclasPulsadas = teclasPulsadas + tecla + " ";
-        }
-      });
-    };
+    return MaterialApp(
+      theme: WordleTema.temaClaro ? WordleTema.claro() : WordleTema.oscuro(),
+      home: Scaffold(
+        appBar: AppBar(
+          title: Row( //Fila que contendrá el botón de retroceso y logo
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              IconButton(
+                icon: Icon(Icons.arrow_back),
+                onPressed: () {
+                  // Acción a realizar al presionar el botón de retroceso
+                  Navigator.pop(context, true);
+                },
+              ),
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 35.0,vertical: 25.0),
+                  child: Image.asset(
+                    'assets/logo2.png',
+                    fit: BoxFit.contain,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          toolbarHeight: 72.0,
+          elevation: 0.0,
+          centerTitle: true,
+          actions: [
+            IconButton(
+              icon: WordleTema.temaClaro ? Icon(Icons.nightlight_outlined) : Icon(Icons.nightlight),
+              onPressed: () {
+                WordleTema.cambiarTema();
+                setState(() {});
+              },
+            ),
+          ],
+        ),
 
-    return Column(
-      children: [
-        //Matriz de casillas
-        GridsSuperiores(),
-        //Prueba de teclado
-        SizedBox(height: 15.0),
-        Text('Teclas Pulsadas: ', style: TextStyle(fontSize: 24)),
-        Text(  teclasPulsadas,style: TextStyle(fontSize: 20)),
-
-        //Teclado
-        Keyboard(TeclaPulsada: teclaPulsada),
-      ],
+        body: Juego(),
+      ),
     );
   }
+
 }

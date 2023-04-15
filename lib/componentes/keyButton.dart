@@ -14,39 +14,49 @@ class KeyButton extends StatefulWidget {
 class _KeyButtonState extends State<KeyButton> {
   String letter;
   final Function(String) TeclaPulsada;
-
   _KeyButtonState(this.letter, this.TeclaPulsada);
+  final tamano_letra = 0.6; //Establece el tamaño de la letra respecto al botón
+  Color colorBoton = Colors.grey;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
-    return AspectRatio(
-      aspectRatio: 8.2, // Ajusta este valor para cambiar el aspecto del botón
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          primary: Colors.grey.shade500,
-          onPrimary: Colors.white,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(5.0),
-          ),
-        ),
-        onPressed: () {
-          TeclaPulsada(letter);
-        },
-        child: Center(
-          child: Text(
-            letter, //Letra que se mostrará en el botón
-            style: TextStyle(
-              fontSize: 14, // Cambia el tamaño de la fuente para hacer el texto más pequeño
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-      ),
+
+    if( letter == "BORRAR" ){
+      colorBoton = Colors.redAccent;
+    }
+
+    return LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints constraints) {
+        return ElevatedButton(
+              style: ButtonStyle( //Estilo para el botón
+                backgroundColor: MaterialStateProperty.all<Color>(colorBoton),
+                shape: MaterialStateProperty.all<OutlinedBorder?>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0))),
+                padding: MaterialStateProperty.all<EdgeInsets?>(const EdgeInsets.all(0)),
+              ),
+              onPressed: (){
+                TeclaPulsada(letter);
+              },
+              child: Center(
+                child: FittedBox(
+                  fit: BoxFit.contain,
+                  child: Text(
+                    letter,
+                    style: TextStyle(
+                      fontSize: constraints.maxHeight * tamano_letra,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey.shade800,
+                    ),
+                  ),
+                ),
+              )
+          );
+      },
     );
   }
 }

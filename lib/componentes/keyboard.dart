@@ -54,16 +54,34 @@ class _KeyboardState extends State<Keyboard> {
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
-        shrinkWrap: true,
-        itemCount: tecladoEspanol.length,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 10,
-            childAspectRatio: 1.2, // Ajusta este valor para modificar el aspecto de las teclas
-            mainAxisSpacing: 5.0,
-            crossAxisSpacing: 5.0),
-        itemBuilder: (BuildContext context, int index) {
-          return KeyButton(
-              letter: tecladoEspanol[index], TeclaPulsada: TeclaPulsada);
-        });
+      padding: EdgeInsets.all(10.0),
+      shrinkWrap: true,
+      itemCount: tecladoEspanol.length + 2, // Agregamos 2 para los espacios vacíos
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 10,
+          childAspectRatio: 0.7, // Valor para modificar el aspecto de las teclas
+          mainAxisSpacing: 5.0,
+          crossAxisSpacing: 5.0),
+      itemBuilder: (BuildContext context, int index) {
+        // Agrega un espacio vacío al principio de la última fila
+        if (index == 20) {
+          return SizedBox.shrink();
+        }
+        // Agrega un espacio vacío al final de la última fila
+        if (index == tecladoEspanol.length + 1) {
+          return SizedBox.shrink();
+        }
+
+        // Ajusta el índice para los botones en la última fila
+        if (index > 20) {
+          index -= 1;
+        }
+
+        return KeyButton(
+            letter: tecladoEspanol[index], TeclaPulsada: TeclaPulsada
+        );
+      },
+    );
   }
+
 }
