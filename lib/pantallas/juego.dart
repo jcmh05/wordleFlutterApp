@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import '../componentes/componentes.dart';
 
 class Juego extends StatefulWidget{
-
-  const Juego({Key? key}) : super(key: key);
+  final int modoDeJuego;
+  const Juego({Key? key, required this.modoDeJuego}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _JuegoState();
@@ -12,34 +12,58 @@ class Juego extends StatefulWidget{
 
 class _JuegoState extends State<Juego> {
 
-  String teclasPulsadas = " ";
-
+  // Array de letras que se manda a grid_superiores con el botón "ENVIAR"
+  List<String?> listaLetras = [];
 
   @override
   Widget build( BuildContext context) {
     final teclaPulsada = (String tecla) {
-      setState(() {
-        if( tecla == "BORRAR"){
-          teclasPulsadas = " ";
-        }else{
-          teclasPulsadas = teclasPulsadas + tecla + " ";
+      if( listaLetras.length > 0 && tecla == 'BORRAR'){
+        listaLetras.removeLast();
+      }else{
+        // Si tenemos todas las letras, borramos la última para sustituirla
+        if( listaLetras.length == widget.modoDeJuego){
+          listaLetras.removeLast();
         }
-      });
+
+        // Añadimos la nueva tecla a la lista y actualizamos la pantalla
+        listaLetras.add(tecla);
+      }
+      setState(() { });
     };
 
     return Column(
       children: [
         //Matriz de casillas
-        Expanded(
-          child: GridsSuperiores(),
+        GridsSuperiores(numero_columnas: widget.modoDeJuego, letras: listaLetras),
+
+        Spacer(),
+
+        //Botón de enviar
+        ElevatedButton(
+          style: ButtonStyle( //Estilo para el botón
+            backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
+            shape: MaterialStateProperty.all<OutlinedBorder?>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0))),
+          ),
+          onPressed: (){
+            // Acción de enviar
+          },
+          child: Text(
+            'ENVIAR',
+            style: TextStyle(
+              fontFamily: 'Montserrat',
+              color: Colors.grey.shade800,
+              fontSize: 25,
+            ),
+          ),
         ),
-        //Prueba de teclado
-        SizedBox(height: 15.0),
-        Text('Teclas Pulsadas: ', style: TextStyle(fontSize: 24)),
-        Text(  teclasPulsadas,style: TextStyle(fontSize: 20)),
+
+        Spacer(),
 
         //Teclado
         Keyboard(TeclaPulsada: teclaPulsada),
+
+        SizedBox(height: 10.0), //Agregar espacio entre el teclado y el borde inferior de la pantalla
       ],
     );
   }

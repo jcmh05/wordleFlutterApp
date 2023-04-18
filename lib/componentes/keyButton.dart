@@ -16,7 +16,7 @@ class _KeyButtonState extends State<KeyButton> {
   final Function(String) TeclaPulsada;
   _KeyButtonState(this.letter, this.TeclaPulsada);
   final tamano_letra = 0.6; //Establece el tamaño de la letra respecto al botón
-  Color colorBoton = Colors.grey;
+  Color colorBoton = Colors.white60;
 
   @override
   void initState() {
@@ -35,6 +35,7 @@ class _KeyButtonState extends State<KeyButton> {
       builder: (BuildContext context, BoxConstraints constraints) {
         return ElevatedButton(
               style: ButtonStyle( //Estilo para el botón
+                elevation: MaterialStateProperty.all(0.6),
                 backgroundColor: MaterialStateProperty.all<Color>(colorBoton),
                 shape: MaterialStateProperty.all<OutlinedBorder?>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0))),
                 padding: MaterialStateProperty.all<EdgeInsets?>(const EdgeInsets.all(0)),
@@ -49,7 +50,6 @@ class _KeyButtonState extends State<KeyButton> {
                     letter,
                     style: TextStyle(
                       fontSize: constraints.maxHeight * tamano_letra,
-                      fontWeight: FontWeight.bold,
                       color: Colors.grey.shade800,
                     ),
                   ),

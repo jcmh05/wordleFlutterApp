@@ -2,16 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:wordle/pantallas/pantallas.dart';
 import 'package:wordle/componentes/componentes.dart';
 
-class WordlePaginaPrincipal extends StatefulWidget{
+class WordlePaginaPrincipal extends StatefulWidget {
+  final int modoDeJuego;
 
-  const WordlePaginaPrincipal({Key? key}) : super(key: key);
+  const WordlePaginaPrincipal({Key? key, required this.modoDeJuego}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _WordleAppPrincipalState();
-
+  _WordleAppPrincipalState createState() => _WordleAppPrincipalState();
 }
 
 class _WordleAppPrincipalState extends State<WordlePaginaPrincipal> {
+  // Parámetros Appbar
+  final alturaBarra = 72.0;
 
   @override
   Widget build( BuildContext context) {
@@ -29,18 +31,22 @@ class _WordleAppPrincipalState extends State<WordlePaginaPrincipal> {
                   Navigator.pop(context, true);
                 },
               ),
+
               Expanded(
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 35.0,vertical: 25.0),
-                  child: Image.asset(
-                    'assets/logo2.png',
-                    fit: BoxFit.contain,
+                  child: SizedBox(
+                    height: alturaBarra,
+                    child: Image.asset(
+                      'assets/logo2.png',
+                      fit: BoxFit.contain,
+                    ),
                   ),
                 ),
               ),
             ],
           ),
-          toolbarHeight: 72.0,
+          toolbarHeight: alturaBarra,
           elevation: 0.0,
           centerTitle: true,
           actions: [
@@ -54,7 +60,7 @@ class _WordleAppPrincipalState extends State<WordlePaginaPrincipal> {
           ],
         ),
 
-        body: Juego(),
+        body: Juego(modoDeJuego: widget.modoDeJuego),
       ),
     );
   }

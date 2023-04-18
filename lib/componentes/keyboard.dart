@@ -58,10 +58,11 @@ class _KeyboardState extends State<Keyboard> {
       shrinkWrap: true,
       itemCount: tecladoEspanol.length + 2, // Agregamos 2 para los espacios vacíos
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 10,
+          crossAxisCount: 10,    // Teclas por fila
           childAspectRatio: 0.7, // Valor para modificar el aspecto de las teclas
-          mainAxisSpacing: 5.0,
-          crossAxisSpacing: 5.0),
+          mainAxisSpacing: 4.5,  // Espacio entre filas
+          crossAxisSpacing: 4.5  // Espacio entre teclas
+      ),
       itemBuilder: (BuildContext context, int index) {
         // Agrega un espacio vacío al principio de la última fila
         if (index == 20) {

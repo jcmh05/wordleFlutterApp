@@ -2,38 +2,38 @@ import 'package:flutter/material.dart';
 import 'package:wordle/componentes/componentes.dart';
 
 
-const filas=6;
-const tam_palabra=5;
-
 class GridsSuperiores extends StatelessWidget {
-  const GridsSuperiores({Key? key}) : super(key: key);
+  final int numero_columnas;
+  final List<String?> letras;
+  const GridsSuperiores({Key? key, required this.numero_columnas, required this.letras}) : super(key: key);
+
+  final filaActual = 0;
 
   @override
   Widget build(BuildContext context) {
-    final List<Row> filas_palabra=List.empty(growable: true);
+    // Parámetros grid
+    final numero_filas = 6;
 
-    for(int i=0;i < filas;i++){
-
-      final List<CasillaDeLetra> casillas = List.empty(growable: true);
-
-      for(int j=0; j<tam_palabra;j++){
-
-        casillas.add(CasillaDeLetra());
-      }
-
-      filas_palabra.add(
-          Row(
-          mainAxisSize: MainAxisSize.min,
-          children: casillas,
-          ));
-    }
-
-    return Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: filas_palabra,
+    return GridView.builder(
+      padding: EdgeInsets.all(15.0), //Espacio alrededor del GridView
+      shrinkWrap: true,
+      itemCount: numero_columnas * numero_filas, // Agregamos 2 para los espacios vacíos
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: numero_columnas,
       ),
+      itemBuilder: (BuildContext context, int index) {
+
+        if ( index>=(numero_columnas*filaActual) && index< (numero_columnas*(filaActual+1))){
+          var indice = index - numero_columnas*filaActual;
+          if( indice < letras.length){
+            return CasillaDeLetra(anchura: 5.0,altura: 5.0, letra: letras[indice]!,);
+          }
+
+
+        }
+
+        return CasillaDeLetra(anchura: 5.0,altura: 5.0, letra: " ",);
+      },
     );
   }
 }
-
