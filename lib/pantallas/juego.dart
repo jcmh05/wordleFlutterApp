@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import '../componentes/componentes.dart';
 
 class Juego extends StatefulWidget{
-
-  const Juego({Key? key}) : super(key: key);
+  final int modoDeJuego;
+  const Juego({Key? key, required this.modoDeJuego}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _JuegoState();
@@ -31,15 +31,22 @@ class _JuegoState extends State<Juego> {
       children: [
         //Matriz de casillas
         Expanded(
-          child: GridsSuperiores(),
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.1), // Agregar padding horizontal
+            child: GridsSuperiores(modoDeJuego: widget.modoDeJuego),
+          ),
         ),
         //Prueba de teclado
         SizedBox(height: 15.0),
-        Text('Teclas Pulsadas: ', style: TextStyle(fontSize: 24)),
-        Text(  teclasPulsadas,style: TextStyle(fontSize: 20)),
 
         //Teclado
-        Keyboard(TeclaPulsada: teclaPulsada),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.1), // Agregar padding horizontal
+
+            child: Keyboard(TeclaPulsada: teclaPulsada),
+          ),
+
+        SizedBox(height: 15.0), //Agregar espacio entre el teclado y el borde inferior de la pantalla
       ],
     );
   }

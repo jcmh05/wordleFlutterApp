@@ -26,10 +26,10 @@ class _MenuState extends State<Menu> {
     Color tercerColorBoton = Colors.grey;
 
     //Función que se llamará al pulsar cada botón del menú
-    void cambiarHaciaJuego() async {
+    void cambiarHaciaJuego(int modoDeJuego) async {
       bool actualizar = await Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => WordlePaginaPrincipal()),
+        MaterialPageRoute(builder: (context) => WordlePaginaPrincipal(modoDeJuego: modoDeJuego)),
       );
 
       if (actualizar){
@@ -54,7 +54,7 @@ class _MenuState extends State<Menu> {
                   padding: EdgeInsets.symmetric(horizontal: margenHorizontal,vertical: margenVertical),
                   child: ElevatedButton(
                     onPressed: () {
-                      cambiarHaciaJuego();
+                      cambiarHaciaJuego(4);
                     },
                     child: Text(
                         'MODO 4',
@@ -76,7 +76,7 @@ class _MenuState extends State<Menu> {
                   padding: EdgeInsets.symmetric(horizontal: margenHorizontal, vertical: margenVertical),
                   child: ElevatedButton(
                     onPressed: () {
-                      cambiarHaciaJuego();
+                      cambiarHaciaJuego(5);
                     },
                     child: Text(
                         'CLÁSICO',
@@ -98,7 +98,7 @@ class _MenuState extends State<Menu> {
                   padding: EdgeInsets.symmetric(horizontal: margenHorizontal, vertical: margenVertical),
                   child: ElevatedButton(
                     onPressed: () {
-                      cambiarHaciaJuego();
+                      cambiarHaciaJuego(6);
                     },
                     child: Text(
                         'MODO 6',

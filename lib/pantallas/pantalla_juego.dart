@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:wordle/pantallas/pantallas.dart';
 import 'package:wordle/componentes/componentes.dart';
 
-class WordlePaginaPrincipal extends StatefulWidget{
+class WordlePaginaPrincipal extends StatefulWidget {
+  final int modoDeJuego;
 
-  const WordlePaginaPrincipal({Key? key}) : super(key: key);
+  const WordlePaginaPrincipal({Key? key, required this.modoDeJuego}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _WordleAppPrincipalState();
-
+  _WordleAppPrincipalState createState() => _WordleAppPrincipalState();
 }
 
 class _WordleAppPrincipalState extends State<WordlePaginaPrincipal> {
@@ -29,6 +29,7 @@ class _WordleAppPrincipalState extends State<WordlePaginaPrincipal> {
                   Navigator.pop(context, true);
                 },
               ),
+
               Expanded(
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 35.0,vertical: 25.0),
@@ -54,7 +55,7 @@ class _WordleAppPrincipalState extends State<WordlePaginaPrincipal> {
           ],
         ),
 
-        body: Juego(),
+        body: Juego(modoDeJuego: widget.modoDeJuego),
       ),
     );
   }
