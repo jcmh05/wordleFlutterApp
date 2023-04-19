@@ -49,6 +49,7 @@ class _KeyButtonState extends State<KeyButton> {
                 style: ButtonStyle( //Estilo para el botón
                   shape: MaterialStateProperty.all<OutlinedBorder?>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0))),
                   padding: MaterialStateProperty.all<EdgeInsets?>(const EdgeInsets.all(0)),
+                  elevation: MaterialStateProperty.all(0.6),
                 ),
                 onPressed: (){
                   TeclaPulsada(letter);
