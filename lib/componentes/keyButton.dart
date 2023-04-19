@@ -16,46 +16,60 @@ class _KeyButtonState extends State<KeyButton> {
   final Function(String) TeclaPulsada;
   _KeyButtonState(this.letter, this.TeclaPulsada);
   final tamano_letra = 0.6; //Establece el tamaño de la letra respecto al botón
-  Color colorBoton = Colors.white60;
+  var _teclaPresionada;
 
   @override
   void initState() {
-    // TODO: implement initState
-    super.initState();
+    _teclaPresionada = false;
+  }
+
+  void _teclaPulsada(PointerUpEvent){
+    setState(() {
+      _teclaPresionada = true;
+    });
+  }
+
+  void _teclaSoltada(PointerDownEvent){
+    _teclaPresionada = false;
   }
 
   @override
   Widget build(BuildContext context) {
 
-    if( letter == "BORRAR" ){
-      colorBoton = Colors.redAccent;
-    }
 
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
-        return ElevatedButton(
-              style: ButtonStyle( //Estilo para el botón
-                elevation: MaterialStateProperty.all(0.6),
-                backgroundColor: MaterialStateProperty.all<Color>(colorBoton),
-                shape: MaterialStateProperty.all<OutlinedBorder?>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0))),
-                padding: MaterialStateProperty.all<EdgeInsets?>(const EdgeInsets.all(0)),
-              ),
-              onPressed: (){
-                TeclaPulsada(letter);
-              },
-              child: Center(
-                child: FittedBox(
-                  fit: BoxFit.contain,
-                  child: Text(
-                    letter,
-                    style: TextStyle(
-                      fontSize: constraints.maxHeight * tamano_letra,
-                      color: Colors.grey.shade800,
+
+        return Listener(
+          onPointerDown: _teclaPulsada,
+          onPointerUp: _teclaSoltada,
+          child: Transform.scale(
+            scale: _teclaPresionada ? 0.85 : 1.0, // Cambiar la escala de la tecla al presionarla
+            child: ElevatedButton(
+                style: ButtonStyle( //Estilo para el botón
+                  shape: MaterialStateProperty.all<OutlinedBorder?>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0))),
+                  padding: MaterialStateProperty.all<EdgeInsets?>(const EdgeInsets.all(0)),
+                ),
+                onPressed: (){
+                  TeclaPulsada(letter);
+                },
+                child: Center(
+                  child: FittedBox(
+                    fit: BoxFit.contain,
+                    child: Text(
+                      letter,
+                      style: TextStyle(
+                        fontSize: constraints.maxHeight * tamano_letra,
+                        color: Colors.grey.shade800,
+                      ),
                     ),
                   ),
-                ),
-              )
-          );
+                )
+            ),
+          ),
+        );
+
+
       },
     );
   }

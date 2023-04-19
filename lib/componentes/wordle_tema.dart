@@ -5,7 +5,6 @@ class WordleTema {
 
   // Almacenar este bool después para recordar la configuración
   static bool _temaClaro = true;
-
   static bool get temaClaro => _temaClaro;
 
   static void cambiarTema() {
@@ -71,6 +70,13 @@ class WordleTema {
 
   static ThemeData claro() {
     return ThemeData(
+      dividerColor: Colors.grey, //Color para borde de las casillas_letra
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all<Color>(Colors.white60)
+        ),
+      ),
+
       brightness: Brightness.light,
       appBarTheme: const AppBarTheme(
         foregroundColor: Colors.black,
@@ -82,6 +88,12 @@ class WordleTema {
 
   static ThemeData oscuro() {
     return ThemeData(
+      dividerColor: Colors.white, //Color para borde de las casillas_letra
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all<Color>(Colors.white)
+        ),
+      ),
       brightness: Brightness.dark,
       appBarTheme: const AppBarTheme(
         foregroundColor: Colors.white,

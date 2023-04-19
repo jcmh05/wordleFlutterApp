@@ -35,30 +35,47 @@ class _JuegoState extends State<Juego> {
     return Column(
       children: [
         //Matriz de casillas
-        GridsSuperiores(numero_columnas: widget.modoDeJuego, letras: listaLetras),
+        Expanded(child: GridsSuperiores(numero_columnas: widget.modoDeJuego, letras: listaLetras),),
 
-        Spacer(),
 
         //Botón de enviar
         ElevatedButton(
-          style: ButtonStyle( //Estilo para el botón
-            backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
-            shape: MaterialStateProperty.all<OutlinedBorder?>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0))),
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                  (Set<MaterialState> states) {
+                if (states.contains(MaterialState.pressed))
+                  return Colors.green.shade800; // Color cuando el botón está presionado
+                return Colors.green; // Color por defecto
+              },
+            ),
+            shape: MaterialStateProperty.all<OutlinedBorder?>(
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
+            ),
+            side: MaterialStateProperty.all<BorderSide>( // Agregar esta línea para agregar un borde
+              BorderSide(color: Colors.black, width: 1.0),
+            ),
+            elevation: MaterialStateProperty.resolveWith<double>(
+                  (Set<MaterialState> states) {
+                if (states.contains(MaterialState.pressed))
+                  return 0.0; // Elevación cuando el botón está presionado
+                return 5.0; // Elevación por defecto
+              },
+            ),
           ),
-          onPressed: (){
+          onPressed: () {
             // Acción de enviar
           },
           child: Text(
             'ENVIAR',
             style: TextStyle(
-              fontFamily: 'Montserrat',
               color: Colors.grey.shade800,
               fontSize: 25,
             ),
           ),
         ),
 
-        Spacer(),
+
+
 
         //Teclado
         Keyboard(TeclaPulsada: teclaPulsada),
