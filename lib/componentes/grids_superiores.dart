@@ -1,46 +1,44 @@
 import 'package:flutter/material.dart';
 import 'package:wordle/componentes/componentes.dart';
 
-const filas = 6;
-const double tamanoMaxCasilla = 60.0;
 
 class GridsSuperiores extends StatelessWidget {
-  final int modoDeJuego;
-  const GridsSuperiores({Key? key, required this.modoDeJuego}) : super(key: key);
+  final int numero_columnas;
+  final List<String?> letras;
+  const GridsSuperiores({Key? key, required this.numero_columnas, required this.letras}) : super(key: key);
+
+  final filaActual = 0;
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (BuildContext context, BoxConstraints constraints) {
-        double casillaAnchura = constraints.maxWidth / modoDeJuego;
-        double tamanoMaximoSegunModo = constraints.maxWidth / modoDeJuego;
-        casillaAnchura = casillaAnchura > tamanoMaxCasilla ? tamanoMaxCasilla : casillaAnchura;
-        casillaAnchura = casillaAnchura > tamanoMaximoSegunModo ? tamanoMaximoSegunModo : casillaAnchura;
-        double casillaAltura = casillaAnchura;
+    // Parámetros grid
+    int numero_filas = 6;
+    if( numero_columnas==4 ){
+      numero_filas = 5;
+    }else if (numero_columnas==6){
+      numero_filas = 7;
+    }
 
-        final List<Row> filas_palabra = List.empty(growable: true);
 
-        for (int i = 0; i < filas; i++) {
-          final List<CasillaDeLetra> casillas = List.empty(growable: true);
+    return GridView.builder(
+      padding: EdgeInsets.all(15.0), //Espacio alrededor del GridView
+      shrinkWrap: true,
+      itemCount: numero_columnas * numero_filas, // Agregamos 2 para los espacios vacíos
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: numero_columnas
+      ),
 
-          for (int j = 0; j < this.modoDeJuego; j++) {
-            casillas.add(CasillaDeLetra(anchura: casillaAnchura, altura: casillaAltura));
+
+      itemBuilder: (BuildContext context, int index) {
+
+        if ( index>=(numero_columnas*filaActual) && index< (numero_columnas*(filaActual+1))){
+          var indice = index - numero_columnas*filaActual;
+          if( indice < letras.length){
+            return CasillaDeLetra( letra: letras[indice]!,);
           }
-
-          filas_palabra.add(
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: casillas,
-            ),
-          );
         }
 
-        return Container(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: filas_palabra,
-          ),
-        );
+        return CasillaDeLetra(letra: " ",);
       },
     );
   }

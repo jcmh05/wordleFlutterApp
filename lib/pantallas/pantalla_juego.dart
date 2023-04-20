@@ -12,6 +12,8 @@ class WordlePaginaPrincipal extends StatefulWidget {
 }
 
 class _WordleAppPrincipalState extends State<WordlePaginaPrincipal> {
+  // Parámetros Appbar
+  final alturaBarra = 72.0;
 
   @override
   Widget build( BuildContext context) {
@@ -33,15 +35,18 @@ class _WordleAppPrincipalState extends State<WordlePaginaPrincipal> {
               Expanded(
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 35.0,vertical: 25.0),
-                  child: Image.asset(
-                    'assets/logo2.png',
-                    fit: BoxFit.contain,
+                  child: SizedBox(
+                    height: alturaBarra,
+                    child: Image.asset(
+                      'assets/logo2.png',
+                      fit: BoxFit.contain,
+                    ),
                   ),
                 ),
               ),
             ],
           ),
-          toolbarHeight: 72.0,
+          toolbarHeight: alturaBarra,
           elevation: 0.0,
           centerTitle: true,
           actions: [

@@ -12,36 +12,7 @@ class Keyboard extends StatefulWidget {
 
 class _KeyboardState extends State<Keyboard> {
   final Function(String) TeclaPulsada;
-  final tecladoEspanol = [
-    'Q',
-    'W',
-    'E',
-    'R',
-    'T',
-    'Y',
-    'U',
-    'I',
-    'O',
-    'P',
-    'A',
-    'S',
-    'D',
-    'F',
-    'G',
-    'H',
-    'J',
-    'K',
-    'L',
-    'Ñ',
-    'Z',
-    'X',
-    'C',
-    'V',
-    'B',
-    'N',
-    'M',
-    'BORRAR'
-  ];
+  final tecladoEspanol = ['Q','W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'Ñ', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', 'BORRAR'];
 
   _KeyboardState({required this.TeclaPulsada});
 
@@ -58,10 +29,11 @@ class _KeyboardState extends State<Keyboard> {
       shrinkWrap: true,
       itemCount: tecladoEspanol.length + 2, // Agregamos 2 para los espacios vacíos
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 10,
+          crossAxisCount: 10,    // Teclas por fila
           childAspectRatio: 0.7, // Valor para modificar el aspecto de las teclas
-          mainAxisSpacing: 5.0,
-          crossAxisSpacing: 5.0),
+          mainAxisSpacing: 2.5,  // Espacio entre filas
+          crossAxisSpacing: 3  // Espacio entre teclas
+      ),
       itemBuilder: (BuildContext context, int index) {
         // Agrega un espacio vacío al principio de la última fila
         if (index == 20) {
