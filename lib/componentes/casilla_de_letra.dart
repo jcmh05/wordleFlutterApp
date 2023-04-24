@@ -3,17 +3,45 @@ import 'package:flutter/material.dart';
 class CasillaDeLetra extends StatelessWidget {
   final String letra;
   final tamano_letra = 0.8;
-  const CasillaDeLetra({Key? key,required this.letra}) : super(key: key);
+  final int estadoCasilla;
+
+  const CasillaDeLetra({Key? key,required this.letra, required this.estadoCasilla}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
+    // Propiedades para los estados de la casilla
+    Color fondoCasilla;
+    Color colorLetra;
+
+    // Cambiar colores en función del estado de la casilla
+    switch (estadoCasilla) {
+      case 1: // Letra no está en la palabra
+        fondoCasilla = Color(0xFF787C7F);
+        colorLetra = Colors.white;
+        break;
+      case 2: // Letra está pero en otra posición
+        fondoCasilla = Color(0xFFc9b457);
+        colorLetra = Colors.white;
+        break;
+      case 3: // Letra está en posición correcta
+        fondoCasilla = Color(0xFF6baa65);
+        colorLetra = Colors.white;
+        break;
+      default:
+        colorLetra =  Theme.of(context).colorScheme.onSurface;
+        fondoCasilla = Colors.transparent;
+    }
+
+
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
         return Container(
           alignment: Alignment.center,
           margin: EdgeInsets.all(4),
           decoration: BoxDecoration(
-              border: Border.all(color: Theme.of(context).dividerColor, width: 2)
+            color: fondoCasilla,
+            border: Border.all(color: Theme.of(context).dividerColor, width: 2)
           ),
           child: Center(
             child: FittedBox(
@@ -21,6 +49,7 @@ class CasillaDeLetra extends StatelessWidget {
               child: Text(
                 letra,
                 style: TextStyle(
+                  color: colorLetra,
                   fontSize: constraints.maxHeight * tamano_letra,
                 ),
               ),
@@ -29,7 +58,5 @@ class CasillaDeLetra extends StatelessWidget {
         );
       },
     );
-
-
   }
 }

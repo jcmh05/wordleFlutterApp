@@ -25,6 +25,7 @@ class _KeyboardState extends State<Keyboard> {
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
+      physics: NeverScrollableScrollPhysics(), //Desactivar scroll en el teclado
       padding: EdgeInsets.all(10.0),
       shrinkWrap: true,
       itemCount: tecladoEspanol.length + 2, // Agregamos 2 para los espacios vacíos
