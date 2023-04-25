@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:wordle/pantallas/pantalla_estadisticas.dart';
+import 'package:wordle/componentes/componentes.dart';
+import 'package:wordle/componentes/ventanaEstadisticas.dart';
 import '../pantallas/pantallas.dart';
 
 class Menu extends StatefulWidget{
@@ -90,7 +91,7 @@ class _MenuState extends State<Menu> {
                         'MODO 4',
                         style: TextStyle(
                           fontWeight: FontWeight.bold, // Fuente botón
-                          fontSize: 30.0, // Tamaño fuente
+                          fontSize: 26.0, // Tamaño fuente
                           color: Colors.white,
                           fontFamily: 'Arial', // Fuente
                         )
@@ -121,7 +122,7 @@ class _MenuState extends State<Menu> {
                         'CLÁSICO',
                         style: TextStyle(
                           fontWeight: FontWeight.bold, // Fuente botón
-                          fontSize: 30.0, // Tamaño fuente
+                          fontSize: 26.0, // Tamaño fuente
                           color: Colors.white,
                           fontFamily: 'Arial', // Fuente
                         )
@@ -152,7 +153,7 @@ class _MenuState extends State<Menu> {
                         'MODO 6',
                         style: TextStyle(
                           fontWeight: FontWeight.bold, // Fuente botón
-                          fontSize: 30.0, // Tamaño fuente
+                          fontSize: 26.0, // Tamaño fuente
                           color: Colors.white,
                           fontFamily: 'Arial', // Fuente
                         )
@@ -171,59 +172,36 @@ class _MenuState extends State<Menu> {
 
         Spacer(),
 
-        Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            // Botón estadísticas
-            Expanded(
-                child: Padding(
-                  padding: EdgeInsets.all(20.0), // Espacio uniforme alrededor del botón
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                          MaterialPageRoute(builder: (context) => PantallaEstadisticas()),
-                      );
-                    },
-                    child: Text(
-                      '📊',
-                      style: TextStyle(
-                        fontSize: 30.0, // Tamaño fuente
-                      ),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      //elevation: 0.0,
-                      backgroundColor: Colors.transparent,
-                      minimumSize: Size(0, alturaBoton-(alturaBoton/4)),
-                    ),
-                  ),
-                ),
-            ),
+        Padding(
+          padding: EdgeInsets.only(bottom: 45.0),
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              // Botón estadísticas
+              IconButton(
+                iconSize: 35.0,
+                splashColor: primerColorBoton,
+                icon: Icon(Icons.bar_chart_sharp),
+                onPressed: () {
+                  showDialog(context: context, builder:(context){return VentanaEstadisticas();});
+                },
+              ),
 
-            // Botón Ajustes
-            Expanded(
-                child: Padding(
-                  padding: EdgeInsets.all(20.0), // Espacio uniforme alrededor del botón
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    child: Text(
-                      '🛠',
-                      style: TextStyle(
-                        fontSize: 30.0, // Tamaño fuente
-                      ),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      //elevation: 0.0,
-                      backgroundColor: Colors.transparent,
-                      minimumSize: Size(0, alturaBoton-(alturaBoton/4)),
-                    ),
-                  ),
-                ),
-            ),
-          ],
+              // Botón Ajustes
+              IconButton(
+                iconSize: 35.0,
+                splashColor: primerColorBoton,
+                icon: Icon(Icons.settings),
+                onPressed: () {
+                  showDialog(context: context, builder:(context){return VentanaAjustes();});
+                },
+              ),
+            ],
+          ),
         ),
+
 
         Spacer(),
 

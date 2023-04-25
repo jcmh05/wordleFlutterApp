@@ -23,7 +23,7 @@ class VentanaFinDeJuego extends StatelessWidget {
         content: SingleChildScrollView(
           child: Center(
             child: Text(
-              (victoria) ? "Enhorabuena" : "La palabra era: " + palabra,
+              (victoria) ? "¡Enhorabuena!" : "La palabra era: " + palabra,
               style: TextStyle(
                 fontSize: 18, // Tamaño de fuente personalizado
               ),

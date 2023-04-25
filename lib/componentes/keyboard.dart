@@ -3,7 +3,17 @@ import './componentes.dart';
 
 class Keyboard extends StatefulWidget {
   final Function(String) TeclaPulsada;
-  const Keyboard({Key? key, required this.TeclaPulsada}) : super(key: key);
+  final String palabra;
+  final teclado;
+  final listaEstados;
+
+  const Keyboard({
+    Key? key,
+    required this.TeclaPulsada,
+    required this.palabra,
+    required this.teclado,
+    required this.listaEstados,
+  }) : super(key: key);
 
   @override
   State<Keyboard> createState() =>
@@ -12,7 +22,6 @@ class Keyboard extends StatefulWidget {
 
 class _KeyboardState extends State<Keyboard> {
   final Function(String) TeclaPulsada;
-  final tecladoEspanol = ['Q','W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'Ñ', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', 'BORRAR'];
 
   _KeyboardState({required this.TeclaPulsada});
 
@@ -24,11 +33,13 @@ class _KeyboardState extends State<Keyboard> {
   // En la clase _KeyboardState
   @override
   Widget build(BuildContext context) {
+
+
     return GridView.builder(
       physics: NeverScrollableScrollPhysics(), //Desactivar scroll en el teclado
       padding: EdgeInsets.all(10.0),
       shrinkWrap: true,
-      itemCount: tecladoEspanol.length + 2, // Agregamos 2 para los espacios vacíos
+      itemCount: widget.teclado.length + 2, // Agregamos 2 para los espacios vacíos
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 10,    // Teclas por fila
           childAspectRatio: 0.7, // Valor para modificar el aspecto de las teclas
@@ -41,7 +52,7 @@ class _KeyboardState extends State<Keyboard> {
           return SizedBox.shrink();
         }
         // Agrega un espacio vacío al final de la última fila
-        if (index == tecladoEspanol.length + 1) {
+        if (index == widget.teclado.length + 1) {
           return SizedBox.shrink();
         }
 
@@ -51,7 +62,9 @@ class _KeyboardState extends State<Keyboard> {
         }
 
         return KeyButton(
-            letter: tecladoEspanol[index], TeclaPulsada: TeclaPulsada
+            letter: widget.teclado[index],
+            TeclaPulsada: TeclaPulsada,
+            estadoTecla: widget.listaEstados[index],
         );
       },
     );

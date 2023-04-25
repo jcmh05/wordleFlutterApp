@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wordle/componentes/componentes.dart';
 import 'package:wordle/modelos/modelos.dart';
+import 'package:wordle/funciones/funciones.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:confetti/confetti.dart';
 
@@ -15,20 +16,37 @@ class Juego extends StatefulWidget{
 }
 
 class _JuegoState extends State<Juego> {
+
+  // CONFIGURACIÓN IDIOMA
+  final int idioma = 0; //0-Español  1-Inglés  2-Francés
+
+  final tecladoEspanol = ['Q','W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'Ñ', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', 'BORRAR'];
+  final tecladoIngles = ['Q','W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', ' ', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', 'BORRAR'];
+  final tecladoFrances = ['A','Z', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', 'Q', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'W', 'X', 'C', 'V', 'B', 'N', ' ', 'BORRAR'];
+
+  // PARÁMETROS JUEGO
   late EstadoJuego estadoJuego;
-  var palabra;
   var filaActual;
+  var palabra;
+  var teclado;
+
+  // Lista de los colores de cada tecla del teclado
+  var listaEstados;
+
   ConfettiController _controller = ConfettiController();
 
-  // Array de letras con la fila que se está escribiendo
+  // Lista de letras con la fila que se está escribiendo
   List<String> letrasFilaActual = [];
 
-  // Array de las letras que ya se han comprobado
+  // Lista de las letras que ya se han comprobado
   List<String> letrasComprobadas = [];
+
 
 
   @override
   void initState(){
+    teclado = idioma== 0 ? tecladoEspanol : idioma==1 ? tecladoIngles : tecladoFrances;
+    listaEstados = List<int>.filled(teclado.length, 0);
     filaActual = 0;
     palabra = " ";
     estadoJuego = EstadoJuego(wordLength: widget.modoDeJuego);
@@ -48,6 +66,7 @@ class _JuegoState extends State<Juego> {
   @override
   Widget build( BuildContext context) {
 
+    // Función llamada con cada tecla pulsada
     final teclaPulsada = (String tecla) {
       if( letrasFilaActual.length > 0 && tecla == 'BORRAR'){
         letrasFilaActual.removeLast();
@@ -62,6 +81,39 @@ class _JuegoState extends State<Juego> {
       }
       setState(() { });
     };
+
+    // Función que actualiza los colores del teclado
+    void actualizaTeclado(String palabraIntroducida){
+      // Recorremos todas las letras
+      for( int i=0 ; i<teclado.length; i++){
+        var letra = teclado[i].toLowerCase();
+        if ( palabraIntroducida.contains(letra)){
+          // Para cada letra de la palabra introducida
+          int color = devolverColor(palabra, palabraIntroducida, palabraIntroducida.indexOf(letra));
+          listaEstados[i] = listaEstados[i]==3 ? 3 : color;
+        }
+      }
+    }
+
+    // Función llamada cada vez que se envía una palabra
+    void letraEnviada(String palabraIntroducida){
+      mostrarMensaje("Palabra:`" + palabra + "´ (borrar esto luego)");
+      // Si la palabra está en el diccionario
+      setState(() {
+        filaActual++;
+        letrasComprobadas.addAll(letrasFilaActual);
+        letrasFilaActual = [];
+        actualizaTeclado(palabraIntroducida);
+        // Comprobamos si la palabra es acertada
+        if( palabraIntroducida == palabra){
+          _controller.play();
+          showDialog(context: context, builder:(context){return VentanaFinDeJuego(victoria: true, palabra: palabra);});
+        }else if( filaActual == (widget.modoDeJuego+1) ){
+          // Si se nos acaban los intentos
+          showDialog(context: context, builder:(context){return VentanaFinDeJuego(victoria: false, palabra: palabra);});
+        }
+      });
+    }
 
     return Column(
       children: [
@@ -122,20 +174,7 @@ class _JuegoState extends State<Juego> {
               // Si la palabra está completa
               String concatenacion = letrasFilaActual.reduce((value, element) => value + element).toLowerCase();
               if ( estadoJuego.estaEnDiccionario(concatenacion) ){
-                // Si la palabra está en el diccionario
-                setState(() {
-                  filaActual++;
-                  letrasComprobadas.addAll(letrasFilaActual);
-                  letrasFilaActual = [];
-                  // Comprobamos si la palabra es acertada
-                  if( concatenacion == palabra){
-                    _controller.play();
-                    showDialog(context: context, builder:(context){return VentanaFinDeJuego(victoria: true, palabra: palabra);});
-                  }else if( filaActual == (widget.modoDeJuego+1) ){
-                    // Si se nos acaban los intentos
-                    showDialog(context: context, builder:(context){return VentanaFinDeJuego(victoria: false, palabra: palabra);});
-                  }
-                });
+                letraEnviada(concatenacion);
               }else{
                 mostrarMensaje( concatenacion + " no está en nuestro diccionario");
               }
@@ -151,7 +190,12 @@ class _JuegoState extends State<Juego> {
         ),
 
         // Teclado
-        Keyboard(TeclaPulsada: teclaPulsada),
+        Keyboard(
+          TeclaPulsada: teclaPulsada,
+          palabra: palabra,
+          teclado: teclado,
+          listaEstados: listaEstados,
+        ),
 
         SizedBox(height: 10.0), //Agregar espacio entre el teclado y el borde inferior de la pantalla
       ],

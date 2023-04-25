@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wordle/componentes/componentes.dart';
+import 'package:wordle/funciones/funciones.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 
 class GridsSuperiores extends StatelessWidget {
@@ -19,6 +21,14 @@ class GridsSuperiores extends StatelessWidget {
     required this.palabra,
     required this.filaActual
   }) : super(key: key);
+
+  // Muestra un toast informativo por pantalla
+  void mostrarMensaje(String mensaje) {
+    Fluttertoast.showToast(
+      msg: mensaje,
+      toastLength: Toast.LENGTH_SHORT,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,19 +61,13 @@ class GridsSuperiores extends StatelessWidget {
           if( index < letrasComprobadas.length ){
             // Si se están dibujando las casillas anteriores a la fila actual
             var indice = index % numero_columnas;
-            if( letrasComprobadas[index] == palabra[indice].toUpperCase()){
-              // Si la letra coincide con la letra de la palabra
-              return CasillaDeLetra( letra: letrasComprobadas[index], estadoCasilla: 3,);
-            }else{
-              if (palabra.contains(letrasComprobadas[index].toLowerCase() ) ){
-                // Si la letra no coincide pero está en la palabra
-                return CasillaDeLetra( letra: letrasComprobadas[index], estadoCasilla: 2,);
-              }else{
-                // Si la letra no coincide ni está en la palabra
-                return CasillaDeLetra( letra: letrasComprobadas[index], estadoCasilla: 1,);
-              }
+
+            String palabraIntroducida = "";
+            for(int i=0; i<palabra.length; i++){
+              palabraIntroducida += letrasComprobadas[(index-indice)+i].toLowerCase();
             }
-            return CasillaDeLetra( letra: "A", estadoCasilla: 0,);
+            int color = devolverColor(palabra, palabraIntroducida, indice);
+            return CasillaDeLetra( letra: letrasComprobadas[index], estadoCasilla: color,);
           }
         }
 
