@@ -21,8 +21,8 @@ class _JuegoState extends State<Juego> {
   final int idioma = 0; //0-Español  1-Inglés  2-Francés
 
   final tecladoEspanol = ['Q','W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'Ñ', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', 'BORRAR'];
-  final tecladoIngles = ['Q','W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', ' ', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', 'BORRAR'];
-  final tecladoFrances = ['A','Z', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', 'Q', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'W', 'X', 'C', 'V', 'B', 'N', ' ', 'BORRAR'];
+  final tecladoIngles = ['Q','W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', 'BORRAR'];
+  final tecladoFrances = ['A','Z', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', 'Q', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'W', 'X', 'C', 'V', 'B', 'N', 'BORRAR'];
 
   // PARÁMETROS JUEGO
   late EstadoJuego estadoJuego;
@@ -80,6 +80,11 @@ class _JuegoState extends State<Juego> {
         letrasFilaActual.add(tecla);
       }
       setState(() { });
+
+      // DESVELAR PALABRA SI SE ESCRIBE "DIME"
+      if (letrasFilaActual.length == 4 && letrasFilaActual.join('') == 'DIME') {
+        mostrarMensaje(palabra);
+      }
     };
 
     // Función que actualiza los colores del teclado
@@ -97,7 +102,6 @@ class _JuegoState extends State<Juego> {
 
     // Función llamada cada vez que se envía una palabra
     void letraEnviada(String palabraIntroducida){
-      mostrarMensaje("Palabra:`" + palabra + "´ (borrar esto luego)");
       // Si la palabra está en el diccionario
       setState(() {
         filaActual++;
@@ -107,10 +111,10 @@ class _JuegoState extends State<Juego> {
         // Comprobamos si la palabra es acertada
         if( palabraIntroducida == palabra){
           _controller.play();
-          showDialog(context: context, builder:(context){return VentanaFinDeJuego(victoria: true, palabra: palabra);});
+          showDialog(context: context, builder:(context){return VentanaFinDeJuego(victoria: true, palabra: palabra, resultado: letrasComprobadas);});
         }else if( filaActual == (widget.modoDeJuego+1) ){
           // Si se nos acaban los intentos
-          showDialog(context: context, builder:(context){return VentanaFinDeJuego(victoria: false, palabra: palabra);});
+          showDialog(context: context, builder:(context){return VentanaFinDeJuego(victoria: false, palabra: palabra, resultado: letrasComprobadas);});
         }
       });
     }

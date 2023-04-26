@@ -15,7 +15,7 @@ class VentanaAjustes extends StatelessWidget {
         content: SingleChildScrollView(
           child: Center(
             child: Text(
-              "meto la girafa en la nevera",
+              "Ajustes por hacer",
               style: TextStyle(
 
               ),

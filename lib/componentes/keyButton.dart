@@ -80,12 +80,15 @@ class _KeyButtonState extends State<KeyButton> {
                 child: Center(
                   child: FittedBox(
                     fit: BoxFit.contain,
-                    child: Text(
+                    child: letter != 'BORRAR' ? Text(
                       letter,
                       style: TextStyle(
                         fontSize: constraints.maxHeight * tamano_letra,
                         color: colorLetra,
                       ),
+                    ) : Icon(
+                      Icons.backspace_outlined,
+                      color: colorLetra,
                     ),
                   ),
                 )
