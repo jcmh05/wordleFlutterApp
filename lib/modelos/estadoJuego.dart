@@ -6,8 +6,9 @@ class EstadoJuego {
   List<String> _words = [];
   String? _selectedWord;
   final int wordLength;
+  final String idioma;
 
-  EstadoJuego({required this.wordLength});
+  EstadoJuego({required this.wordLength, required this.idioma});
 
   Future<void> init() async {
     _words = await loadWords(wordLength);
@@ -15,7 +16,7 @@ class EstadoJuego {
   }
 
   Future<List<String>> loadWords(int wordLength) async {
-    String jsonString = await rootBundle.loadString('assets/dictionary.json');
+    String jsonString = await rootBundle.loadString('assets/dictionary_${idioma}.json');
     List<String> words = List<String>.from(json.decode(jsonString));
     List<String> filteredWords = words.where((word) => word.length == wordLength).toList();
     return filteredWords;

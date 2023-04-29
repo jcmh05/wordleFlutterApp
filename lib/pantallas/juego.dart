@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:wordle/componentes/componentes.dart';
-import 'package:wordle/modelos/modelos.dart';
-import 'package:wordle/funciones/funciones.dart';
+import 'package:Wordel/componentes/componentes.dart';
+import 'package:Wordel/modelos/modelos.dart';
+import 'package:Wordel/funciones/funciones.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:confetti/confetti.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../generated/l10n.dart';
 
 
 class Juego extends StatefulWidget{
   final int modoDeJuego;  // Nº de letras de la palabra
-  const Juego({Key? key, required this.modoDeJuego}) : super(key: key);
+  final String idioma;
+  const Juego({Key? key, required this.modoDeJuego, required this.idioma}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _JuegoState();
@@ -16,13 +20,17 @@ class Juego extends StatefulWidget{
 }
 
 class _JuegoState extends State<Juego> {
+  bool juegoTerminado = false;
 
-  // CONFIGURACIÓN IDIOMA
-  final int idioma = 0; //0-Español  1-Inglés  2-Francés
-
-  final tecladoEspanol = ['Q','W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'Ñ', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', 'BORRAR'];
-  final tecladoIngles = ['Q','W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', 'BORRAR'];
-  final tecladoFrances = ['A','Z', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', 'Q', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'W', 'X', 'C', 'V', 'B', 'N', 'BORRAR'];
+  final Map<String, List<String>> teclados = {
+    'es': ['Q','W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'Ñ', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', 'BORRAR'],
+    'en': ['Q','W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', 'BORRAR'],
+    'fr': ['A','Z', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', 'Q', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'W', 'X', 'C', 'V', 'B', 'N', 'BORRAR'],
+    'it': ['Q','W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', 'BORRAR'],
+    'ca': ['Q','W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', 'BORRAR'],
+    'da': ['Q','W', 'E', 'R', 'T', 'Z', 'U', 'I', 'O', 'P', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'Y', 'X', 'C', 'V', 'B', 'N', 'M', 'BORRAR'],
+    'zh': ['手','田', '水', '口', '廿', '卜', '山', '戈', '人', '心', '日', '尸', '木', '火', '土', '竹', '十', '大', '中', '難', '金', '女', '月', '弓','BORRAR']
+  };
 
   // PARÁMETROS JUEGO
   late EstadoJuego estadoJuego;
@@ -45,11 +53,11 @@ class _JuegoState extends State<Juego> {
 
   @override
   void initState(){
-    teclado = idioma== 0 ? tecladoEspanol : idioma==1 ? tecladoIngles : tecladoFrances;
+    teclado = teclados[widget.idioma];
     listaEstados = List<int>.filled(teclado.length, 0);
     filaActual = 0;
     palabra = " ";
-    estadoJuego = EstadoJuego(wordLength: widget.modoDeJuego);
+    estadoJuego = EstadoJuego(wordLength: widget.modoDeJuego, idioma: widget.idioma);
     estadoJuego.init().then((_) {
       palabra = estadoJuego.palabra;
     });
@@ -61,6 +69,62 @@ class _JuegoState extends State<Juego> {
       msg: mensaje,
       toastLength: Toast.LENGTH_SHORT,
     );
+  }
+
+  void actualizaMejoresPartidas(double puntuacion) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    // Obtiene la lista de los 9 mejores puntajes y sus nombres asociados
+    List<double> mejoresPuntajes = List.generate( 9, (index) => prefs.getDouble('top${index + 1}Valor') ?? 0.0, );
+    List<String> mejoresNombres = List.generate(9, (index) => prefs.getString('top${index + 1}Nombre') ?? '', );
+
+    // Busca el primer puntaje en la lista que sea menor que la puntuación
+    int indiceMenorPuntaje = mejoresPuntajes.indexWhere((puntaje) => puntaje <= puntuacion);
+
+    // Si la puntuación es mayor que alguno de los puntajes en la lista
+    if (indiceMenorPuntaje >= 0) {
+      // Agrega la puntuación y el nombre en la posición correspondiente en la lista
+      mejoresPuntajes.insert(indiceMenorPuntaje, puntuacion);
+      mejoresNombres.insert(indiceMenorPuntaje, palabra);
+      // Elimina el último elemento de la lista
+      mejoresPuntajes.removeLast();
+      mejoresNombres.removeLast();
+    }
+
+    // Guarda los mejores puntajes y nombres en SharedPreferences
+    for (int i = 0; i < 9; i++) {
+      prefs.setDouble('top${i + 1}Valor', mejoresPuntajes[i]);
+      prefs.setString('top${i + 1}Nombre', mejoresNombres[i]);
+    }
+  }
+
+
+
+  // Actualiza las estadísticas según el resultado de la partida
+  void actualizaEstadisticas(bool victoria) async{
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    int partidas = prefs.getInt('partidas') ?? 0;
+    int ganadas = prefs.getInt('ganadas') ?? 0;
+    int perdidas = prefs.getInt('perdidas') ?? 0;
+    int racha = prefs.getInt('racha') ?? 0;
+    int mejorRacha = prefs.getInt('mejorRacha') ?? 0;
+    partidas++;
+
+    if( victoria ){
+      ganadas++;
+      prefs.setInt('ganadas',(ganadas));
+      prefs.setInt('racha',racha+1);
+      if( (racha+1) > mejorRacha ){
+        prefs.setInt('mejorRacha',racha+1);
+      }
+    }
+    else{
+      prefs.setInt('perdidas',(perdidas+1));
+      prefs.setInt('racha',0);
+    }
+
+    prefs.setInt('porcentaje', ((ganadas/partidas)*100).ceil() );
+    prefs.setInt('partidas',partidas);
   }
 
   @override
@@ -95,7 +159,7 @@ class _JuegoState extends State<Juego> {
         if ( palabraIntroducida.contains(letra)){
           // Para cada letra de la palabra introducida
           int color = devolverColor(palabra, palabraIntroducida, palabraIntroducida.indexOf(letra));
-          listaEstados[i] = listaEstados[i]==3 ? 3 : color;
+          listaEstados[i] = listaEstados[i]==3 ? 3 : listaEstados[i]==1 ? 1 : color;
         }
       }
     }
@@ -110,10 +174,17 @@ class _JuegoState extends State<Juego> {
         actualizaTeclado(palabraIntroducida);
         // Comprobamos si la palabra es acertada
         if( palabraIntroducida == palabra){
+          int n_intentos = letrasComprobadas.length ~/ palabra.length;
+          int n_maximos = palabra.length == 4 ? 5 : palabra.length==5 ? 6 : 7;
           _controller.play();
+          actualizaEstadisticas(true);
+          actualizaMejoresPartidas( 100 - ((n_intentos/n_maximos)*100) );
+          juegoTerminado = true;
+          letrasFilaActual = List.filled(palabra.length, " ");
           showDialog(context: context, builder:(context){return VentanaFinDeJuego(victoria: true, palabra: palabra, resultado: letrasComprobadas);});
         }else if( filaActual == (widget.modoDeJuego+1) ){
           // Si se nos acaban los intentos
+          actualizaEstadisticas(false);
           showDialog(context: context, builder:(context){return VentanaFinDeJuego(victoria: false, palabra: palabra, resultado: letrasComprobadas);});
         }
       });
@@ -170,22 +241,24 @@ class _JuegoState extends State<Juego> {
             ),
           ),
           onPressed: () {
-            // Acción de enviar
-            if( letrasFilaActual.length < widget.modoDeJuego){
-              // Si la palabra no está completa
-              mostrarMensaje("No hay suficientes letras");
-            }else{
-              // Si la palabra está completa
-              String concatenacion = letrasFilaActual.reduce((value, element) => value + element).toLowerCase();
-              if ( estadoJuego.estaEnDiccionario(concatenacion) ){
-                letraEnviada(concatenacion);
+            if (!juegoTerminado){
+              // Acción de enviar
+              if( letrasFilaActual.length < widget.modoDeJuego){
+                // Si la palabra no está completa
+                mostrarMensaje(S.current.palabraInsuficiente);
               }else{
-                mostrarMensaje( concatenacion + " no está en nuestro diccionario");
+                // Si la palabra está completa
+                String concatenacion = letrasFilaActual.reduce((value, element) => value + element).toLowerCase();
+                if ( estadoJuego.estaEnDiccionario(concatenacion) ){
+                  letraEnviada(concatenacion);
+                }else{
+                  mostrarMensaje( concatenacion + S.current.palabraInexistente);
+                }
               }
             }
           },
           child: Text(
-            'ENVIAR',
+            S.current.enviar,
             style: TextStyle(
               color: Colors.grey.shade800,
               fontSize: 25,
@@ -206,3 +279,4 @@ class _JuegoState extends State<Juego> {
     );
   }
 }
+

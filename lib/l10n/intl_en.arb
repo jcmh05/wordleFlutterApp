@@ -1,0 +1,26 @@
+{
+    "boton1menu": "MODE 4",
+    "boton2menu": "CLASSIC",
+    "boton3menu": "MODE 6",
+    "tituloEstadisticas": "Game Statistics",
+    "partidas": "🕹 GAMES\nPLAYED",
+    "ganadas": "🏆 GAMES\nWON",
+    "porcentaje": "📈 VICTORIES\n(%)",
+    "perdidas": "🥀 GAMES\nLOST",
+    "racha": "🔥 CURRENT\nSTREAK",
+    "mejorRacha": "⚡ BEST\nSTREAK",
+    "tituloTop": "Top Games",
+    "botonFormateo": "Format Stats",
+    "confirmarFormateo": "Stats Erased",
+    "cerrar": "Close",
+    "compartir": "Share",
+    "enviar" : "SEND",
+    "palabraInexistente": "is not in our dictionary",
+    "palabraInsuficiente": "Not enough letters",
+    "tituloVictoria": "You won! 🏆",
+    "tituloDerrota" : "You lost! 😢",
+    "textoDerrota": "The word was: ",
+    "textoVictoria": "Congratulations!\n \nShare the result with all your friends",
+    "volverAlMenu": "Back to menu"
+}
+

@@ -11,8 +11,9 @@ class CasillaDeLetra extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Propiedades para los estados de la casilla
-    Color fondoCasilla;
-    Color colorLetra;
+    Color fondoCasilla = Colors.transparent;
+    Color colorLetra = Theme.of(context).colorScheme.onSurface;
+    Color colorBorde = Theme.of(context).dividerColor;
 
     // Cambiar colores en función del estado de la casilla
     switch (estadoCasilla) {
@@ -28,9 +29,9 @@ class CasillaDeLetra extends StatelessWidget {
         fondoCasilla = Color(0xFF6baa65);
         colorLetra = Colors.white;
         break;
-      default:
-        colorLetra =  Theme.of(context).colorScheme.onSurface;
-        fondoCasilla = Colors.transparent;
+      case 4: // Siguiente letra en dibujarse
+        colorBorde = Theme.of(context).accentColor;
+        break;
     }
 
 
@@ -41,7 +42,7 @@ class CasillaDeLetra extends StatelessWidget {
           margin: EdgeInsets.all(4),
           decoration: BoxDecoration(
             color: fondoCasilla,
-            border: Border.all(color: Theme.of(context).dividerColor, width: 2)
+            border: Border.all(color: colorBorde, width: 2)
           ),
           child: Center(
             child: FittedBox(

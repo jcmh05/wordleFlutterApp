@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:wordle/funciones/devolverColor.dart';
 import 'dart:math';
+import 'package:Wordel/funciones/funciones.dart';
+
+import '../generated/l10n.dart';
 
 class VentanaFinDeJuego extends StatelessWidget {
   final bool victoria;
@@ -53,9 +55,9 @@ class VentanaFinDeJuego extends StatelessWidget {
     String titulo;
 
     if( victoria ){
-      titulo = '¡Ganaste!🏆';
+      titulo = S.current.tituloVictoria;
     }else{
-      titulo = "¡Perdiste!😢";
+      titulo = S.current.tituloDerrota;
     }
 
     return AlertDialog(
@@ -63,7 +65,8 @@ class VentanaFinDeJuego extends StatelessWidget {
         content: SingleChildScrollView(
           child: Center(
             child: Text(
-              (victoria) ? "¡Enhorabuena!" : "La palabra era: " + palabra,
+              (victoria) ? S.current.textoVictoria : S.current.textoDerrota + palabra,
+              textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 18, // Tamaño de fuente personalizado
               ),
@@ -75,14 +78,14 @@ class VentanaFinDeJuego extends StatelessWidget {
             onPressed: () {
               compartirTexto(textoAlCompartir());
             },
-            child: Text('Compartir'),
+            child: Text(S.current.compartir),
           ),
           TextButton(
             onPressed: () {
               Navigator.of(context).pop();
               Navigator.of(context).pop();
             },
-            child: Text('Volver al menú'),
+            child: Text(S.current.volverAlMenu),
           ),
         ],
         shape: RoundedRectangleBorder(

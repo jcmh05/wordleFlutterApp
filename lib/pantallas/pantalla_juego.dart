@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:wordle/pantallas/pantallas.dart';
-import 'package:wordle/componentes/componentes.dart';
+import 'package:Wordel/pantallas/pantallas.dart';
+import 'package:Wordel/componentes/componentes.dart';
 
-class WordlePaginaPrincipal extends StatefulWidget {
+class PantallaJuego extends StatefulWidget {
   final int modoDeJuego;
-
-  const WordlePaginaPrincipal({Key? key, required this.modoDeJuego}) : super(key: key);
+  final String idioma;
+  const PantallaJuego({Key? key, required this.modoDeJuego, required this.idioma}) : super(key: key);
 
   @override
   _WordleAppPrincipalState createState() => _WordleAppPrincipalState();
 }
 
-class _WordleAppPrincipalState extends State<WordlePaginaPrincipal> {
+class _WordleAppPrincipalState extends State<PantallaJuego> {
   // Parámetros Appbar
   final alturaBarra = 72.0;
 
@@ -60,7 +60,7 @@ class _WordleAppPrincipalState extends State<WordlePaginaPrincipal> {
           ],
         ),
 
-        body: Juego(modoDeJuego: widget.modoDeJuego),
+        body: Juego(modoDeJuego: widget.modoDeJuego, idioma: widget.idioma,),
       ),
     );
   }

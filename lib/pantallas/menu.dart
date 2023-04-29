@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:wordle/componentes/componentes.dart';
-import 'package:wordle/componentes/ventanaEstadisticas.dart';
+import 'package:Wordel/componentes/componentes.dart';
+import 'package:Wordel/componentes/ventanaEstadisticas.dart';
+import '../generated/l10n.dart';
 import '../pantallas/pantallas.dart';
 
 class Menu extends StatefulWidget{
   final Function actualizarTema;
-  const Menu({Key? key, required this.actualizarTema}) : super(key: key);
+  final String idioma;
+  const Menu({Key? key, required this.actualizarTema, required this.idioma}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _MenuState();
@@ -29,7 +31,7 @@ class _MenuState extends State<Menu> {
   void cambiarHaciaJuego(int modoDeJuego) async {
     bool actualizar = await Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => WordlePaginaPrincipal(modoDeJuego: modoDeJuego)),
+      MaterialPageRoute(builder: (context) => PantallaJuego(modoDeJuego: modoDeJuego, idioma: widget.idioma)),
     );
 
     if (actualizar){
@@ -88,7 +90,7 @@ class _MenuState extends State<Menu> {
                       cambiarHaciaJuego(4);
                     },
                     child: Text(
-                        'MODO 4',
+                        S.current.boton1menu,
                         style: TextStyle(
                           fontWeight: FontWeight.bold, // Fuente botón
                           fontSize: 26.0, // Tamaño fuente
@@ -119,7 +121,7 @@ class _MenuState extends State<Menu> {
                       cambiarHaciaJuego(5);
                     },
                     child: Text(
-                        'CLÁSICO',
+                        S.current.boton2menu,
                         style: TextStyle(
                           fontWeight: FontWeight.bold, // Fuente botón
                           fontSize: 26.0, // Tamaño fuente
@@ -150,7 +152,7 @@ class _MenuState extends State<Menu> {
                       cambiarHaciaJuego(6);
                     },
                     child: Text(
-                        'MODO 6',
+                        S.current.boton3menu,
                         style: TextStyle(
                           fontWeight: FontWeight.bold, // Fuente botón
                           fontSize: 26.0, // Tamaño fuente

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter/services.dart';
+import 'package:soundpool/soundpool.dart';
 
 class WordleTema {
 
@@ -7,8 +9,21 @@ class WordleTema {
   static bool _temaClaro = true;
   static bool get temaClaro => _temaClaro;
 
+
+  static void sonidoDeCambio() async{
+    String sonido = temaClaro ? "assets/off.mp3" : "assets/on.mp3";
+    Soundpool pool = Soundpool(streamType: StreamType.notification);
+    int soundId = await rootBundle
+        .load(sonido)
+        .then((ByteData soundData) {
+      return pool.load(soundData);
+    });
+    int streamId = await pool.play(soundId);
+  }
+
   static void cambiarTema() {
     _temaClaro = !_temaClaro;
+    sonidoDeCambio();
   }
 
 
@@ -71,6 +86,7 @@ class WordleTema {
   static ThemeData claro() {
     return ThemeData(
       dividerColor: Colors.grey, //Color para borde de las casillas_letra
+      accentColor: Colors.black,
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all<Color>(Colors.white60)
@@ -89,6 +105,7 @@ class WordleTema {
   static ThemeData oscuro() {
     return ThemeData(
       dividerColor: Colors.white, //Color para borde de las casillas_letra
+      accentColor: Colors.white38,
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all<Color>(Colors.white)

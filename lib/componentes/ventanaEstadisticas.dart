@@ -1,9 +1,44 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../generated/l10n.dart';
+
 
 class VentanaEstadisticas extends StatelessWidget {
 
   const VentanaEstadisticas({Key? key}) : super(key: key);
+
+  Future<int> obtenerDatosInt(String value) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getInt(value) ?? 0;
+  }
+
+  Future<double> obtenerDatosDouble(String value) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getDouble(value) ?? 0;
+  }
+
+  Future<String> obtenerDatosString(String value) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString(value) ?? " ";
+  }
+
+  void borrarEstadisticas() async{
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    for (int i = 1; i <= 9; i++) {
+      prefs.setDouble('top${i}Valor', 0.0);
+      prefs.setString('top${i}Nombre', ' ');
+    }
+    prefs.setInt('porcentaje', 0 );
+    prefs.setInt('partidas',0);
+    prefs.setInt('ganadas',0);
+    prefs.setInt('racha',0);
+    prefs.setInt('mejorRacha',0);
+    prefs.setInt('perdidas',0);
+    prefs.setInt('racha',0);
+  }
 
 
   // Muestra un toast informativo por pantalla
@@ -53,25 +88,59 @@ class VentanaEstadisticas extends StatelessWidget {
       );
     }
 
-    Widget barraProgreso( String numero, int porcentaje){
+    Widget FutureContainer(String dato, String texto){
+      return FutureBuilder<int>(
+        future: obtenerDatosInt(dato),
+        builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return CircularProgressIndicator();
+          } else {
+            return containerDatos("${snapshot.data}", texto);
+          }
+        },
+      );
+    }
+
+    Widget nombrePalabra( String numero ){
+      return FutureBuilder<String>(
+        future: obtenerDatosString("top${numero}Nombre"),
+        builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return CircularProgressIndicator();
+          } else {
+            return Text( snapshot.data.toString().toUpperCase());
+          }
+        },
+      );
+    }
+
+    Widget barraProgreso( String numero){
       return Container(
         padding: EdgeInsets.symmetric(vertical: 7),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              numero,
+              "#" + numero,
               style: TextStyle(fontSize: 16),
             ),
             SizedBox(width: 8),
-            Expanded(
-              child: LinearProgressIndicator(
-                value: porcentaje / 100,
-                minHeight: 20,
-                backgroundColor: Colors.grey[200],
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
-                semanticsValue: porcentaje.toString() + "%",
-              ),
+            FutureBuilder<double>(
+              future: obtenerDatosDouble("top${numero}Valor"),
+              builder: (BuildContext context, AsyncSnapshot<double> snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return CircularProgressIndicator();
+                } else {
+                  return Expanded(
+                    child: LinearProgressIndicator(
+                      value: (snapshot.data ?? 0) / 100,
+                      minHeight: 20,
+                      backgroundColor: Colors.grey[200],
+                      valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+                    ),
+                  );
+                }
+              },
             ),
           ],
         ),
@@ -80,7 +149,7 @@ class VentanaEstadisticas extends StatelessWidget {
 
     return AlertDialog(
       title: Center(
-        child: Text('Estadísticas de juego'),
+        child: Text(S.current.tituloEstadisticas),
       ),
       content: SingleChildScrollView(
         // ESTADÍSTICAS
@@ -93,9 +162,9 @@ class VentanaEstadisticas extends StatelessWidget {
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  containerDatos("0", "🕹️ PARTIDAS\nJUGADAS"),
+                  FutureContainer("partidas",S.current.partidas),
                   SizedBox(width: 8.0), // Espacio entre los contenedores
-                  containerDatos("0", "🏆 PARTIDAS\nGANADAS"),
+                  FutureContainer("ganadas",S.current.ganadas),
                 ],
               ),
               SizedBox(height: 16.0), // Espacio entre filas
@@ -104,9 +173,9 @@ class VentanaEstadisticas extends StatelessWidget {
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  containerDatos("0", "📈 VICTORIAS\n(%)"),
+                  FutureContainer("porcentaje",S.current.porcentaje),
                   SizedBox(width: 8.0), // Espacio entre los contenedores
-                  containerDatos("0", "💎 MEJOR\nINTENTO"),
+                  FutureContainer("perdidas",S.current.perdidas),
                 ],
               ),
               SizedBox(height: 16.0), // Espacio entre filas
@@ -115,9 +184,9 @@ class VentanaEstadisticas extends StatelessWidget {
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  containerDatos("0", "🔥 RACHA\nACTUAL"),
+                  FutureContainer("racha",S.current.racha),
                   SizedBox(width: 8.0), // Espacio entre los contenedores
-                  containerDatos("0", "⚡ MEJOR\nRACHA"),
+                  FutureContainer("mejorRacha",S.current.mejorRacha),
                 ],
               ),
               SizedBox(height: 25.0), // Espacio entre filas
@@ -125,7 +194,7 @@ class VentanaEstadisticas extends StatelessWidget {
               // TOP #10
               Center(
                 child: Text(
-                  'Mejores partidas',
+                  S.current.tituloTop,
                   style: TextStyle(
                     fontSize: 22.0,
                     fontWeight: FontWeight.w500,
@@ -134,25 +203,36 @@ class VentanaEstadisticas extends StatelessWidget {
               ),
               SizedBox(height: 16.0), // Espacio entre filas
 
-              barraProgreso("#1", 20),
-              barraProgreso("#2", 25),
-              barraProgreso("#3", 40),
-              barraProgreso("#4", 45),
-              barraProgreso("#5", 50),
-              barraProgreso("#6", 80),
-              barraProgreso("#7", 82),
-              barraProgreso("#8", 85),
-              barraProgreso("#9", 90),
+              barraProgreso("1"),
+              nombrePalabra("1"),
+              barraProgreso("2"),
+              nombrePalabra("2"),
+              barraProgreso("3"),
+              nombrePalabra("3"),
+              barraProgreso("4"),
+              nombrePalabra("4"),
+              barraProgreso("5"),
+              nombrePalabra("5"),
+              barraProgreso("6"),
+              nombrePalabra("6"),
+              barraProgreso("7"),
+              nombrePalabra("7"),
+              barraProgreso("8"),
+              nombrePalabra("8"),
+              barraProgreso("9"),
+              nombrePalabra("9"),
 
               SizedBox(height: 16.0), // Espacio entre filas
 
               ElevatedButton(
                 onPressed: () {
                   // Acción a realizar al presionar el botón
-                  mostrarMensaje("Estadísticas borradas");
+                  mostrarMensaje(S.current.confirmarFormateo);
+                  borrarEstadisticas();
+                  Navigator.of(context).pop();
                 },
                 child: Text(
-                  'Restablecer estadísticas',
+                  S.current.botonFormateo,
                   style: TextStyle(color: Colors.blue),
                 ),
                 style: ButtonStyle(
@@ -178,13 +258,13 @@ class VentanaEstadisticas extends StatelessWidget {
           onPressed: () {
             Navigator.of(context).pop();
           },
-          child: Text('Compartir'),
+          child: Text(S.current.compartir),
         ),
         TextButton(
           onPressed: () {
             Navigator.of(context).pop();
           },
-          child: Text('Cerrar'),
+          child: Text(S.current.cerrar),
         ),
       ],
       shape: RoundedRectangleBorder(

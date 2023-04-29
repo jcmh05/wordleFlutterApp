@@ -1,5 +1,5 @@
-name: wordle
-description: A new Flutter project.
+name: Wordel
+description: Un juego de palabras
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -34,6 +34,10 @@ dependencies:
   fluttertoast: ^8.2.1
   confetti: ^0.7.0
   share_plus: ^4.0.1
+  shared_preferences: ^2.1.0
+  soundpool: ^2.3.0
+  flutter_localizations:
+    sdk: flutter
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -65,10 +69,22 @@ flutter:
   assets:
     - assets/logo.png
     - assets/logo2.png
-    - assets/dictionary.json
-    - assets/bandera_pais1.png
-    - assets/bandera_pais2.png
-    - assets/bandera_pais3.png
+    - assets/dictionary_es.json
+    - assets/dictionary_en.json
+    - assets/dictionary_fr.json
+    - assets/dictionary_it.json
+    - assets/dictionary_ca.json
+    - assets/dictionary_da.json
+    - assets/dictionary_zh.json
+    - assets/bandera_es.png
+    - assets/bandera_en.png
+    - assets/bandera_fr.png
+    - assets/bandera_it.png
+    - assets/bandera_ca.png
+    - assets/bandera_da.png
+    - assets/bandera_zh.png
+    - assets/on.mp3
+    - assets/off.mp3
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -94,4 +110,6 @@ flutter:
   #         weight: 700
   #
   # For details regarding fonts from package dependencies,
-  # see https://flutter.dev/custom-fonts/#from-packages
+  # see https://flutter.dev/custom-fonts/#from-packagesz
+flutter_intl:
+  enabled: true

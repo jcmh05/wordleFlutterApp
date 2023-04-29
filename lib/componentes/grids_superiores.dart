@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:wordle/componentes/componentes.dart';
-import 'package:wordle/funciones/funciones.dart';
+import 'package:Wordel/componentes/componentes.dart';
+import 'package:Wordel/funciones/funciones.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 
@@ -56,6 +56,10 @@ class GridsSuperiores extends StatelessWidget {
           var indice = index - numero_columnas*filaActual;
           if( indice < letrasFilaActual.length){
             return CasillaDeLetra( letra: letrasFilaActual[indice], estadoCasilla: 0,);
+          }else{
+            if( indice == 0 || (indice) == letrasFilaActual.length){
+              return CasillaDeLetra( letra: " ", estadoCasilla: 4);
+            }
           }
         }else{
           if( index < letrasComprobadas.length ){
