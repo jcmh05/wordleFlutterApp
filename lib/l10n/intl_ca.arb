@@ -6,7 +6,7 @@
   "partidas": "🕹 PARTIDES\nJUGADES",
   "ganadas": "🏆 PARTIDES\nGUANYADES",
   "porcentaje": "📈 VICTÒRIES\n(%)",
-  "perdidas": "🥀 PARTIDES\nPERDUTADES",
+  "perdidas": "🥀 PARTIDES\nPERDUDES",
   "racha": "🔥 RATXA\nACTUAL",
   "mejorRacha": "⚡ MILLOR\nRATXA",
   "tituloTop": "Millors Partides",
@@ -21,5 +21,12 @@
   "tituloDerrota" : "Has perdut! 😢",
   "textoDerrota": "La paraula era: ",
   "textoVictoria": "Felicitats!\n \nComparteix el resultat amb tots els teus amics",
-  "volverAlMenu": "Tornar al menú"
+  "volverAlMenu": "Tornar al menú",
+  "ajustes" : "Configuració",
+  "sonidosInterfaz": "📱 Sons de la interfície",
+  "sonidosTeclado": "⌨ Sons del teclat",
+  "musica": "🎵 Música",
+  "volumenMusica": "Volum de música:",
+  "cancion" : "Cançó seleccionada:",
+  "cancionHint" : "Selecciona una cançó"
 }

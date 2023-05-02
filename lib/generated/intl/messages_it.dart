@@ -22,11 +22,15 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "ajustes": MessageLookupByLibrary.simpleMessage("Impostazioni"),
         "boton1menu": MessageLookupByLibrary.simpleMessage("MODO 4"),
         "boton2menu": MessageLookupByLibrary.simpleMessage("CLASSICO"),
         "boton3menu": MessageLookupByLibrary.simpleMessage("MODO 6"),
         "botonFormateo":
             MessageLookupByLibrary.simpleMessage("Formattare statistiche"),
+        "cancion": MessageLookupByLibrary.simpleMessage("Canzone selezionata:"),
+        "cancionHint":
+            MessageLookupByLibrary.simpleMessage("Seleziona una canzone"),
         "cerrar": MessageLookupByLibrary.simpleMessage("Chiudere"),
         "compartir": MessageLookupByLibrary.simpleMessage("Condividere"),
         "confirmarFormateo":
@@ -35,6 +39,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "ganadas": MessageLookupByLibrary.simpleMessage("🏆 PARTITE\nVINCITE"),
         "mejorRacha":
             MessageLookupByLibrary.simpleMessage("⚡ MIGLIORE\nSTRISCIA"),
+        "musica": MessageLookupByLibrary.simpleMessage("🎵 Musica"),
         "palabraInexistente": MessageLookupByLibrary.simpleMessage(
             " non è nel nostro dizionario"),
         "palabraInsuficiente": MessageLookupByLibrary.simpleMessage(
@@ -43,6 +48,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "perdidas": MessageLookupByLibrary.simpleMessage("🥀 PARTITE\nPERSE"),
         "porcentaje": MessageLookupByLibrary.simpleMessage("📈 VITTORIE\n(%)"),
         "racha": MessageLookupByLibrary.simpleMessage("🔥 STRISCIA\nATTUALE"),
+        "sonidosInterfaz":
+            MessageLookupByLibrary.simpleMessage("📱 Suoni dell\'interfaccia"),
+        "sonidosTeclado":
+            MessageLookupByLibrary.simpleMessage("⌨ Suoni della tastiera"),
         "textoDerrota": MessageLookupByLibrary.simpleMessage("La parola era: "),
         "textoVictoria": MessageLookupByLibrary.simpleMessage(
             "Congratulazioni!\n \nCondividi il risultato con tutti i tuoi amici"),
@@ -51,6 +60,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Statistiche di gioco"),
         "tituloTop": MessageLookupByLibrary.simpleMessage("Migliori Partite"),
         "tituloVictoria": MessageLookupByLibrary.simpleMessage("Hai vinto! 🏆"),
+        "volumenMusica":
+            MessageLookupByLibrary.simpleMessage("Volume della musica:"),
         "volverAlMenu": MessageLookupByLibrary.simpleMessage("Tornare al menu")
       };
 }

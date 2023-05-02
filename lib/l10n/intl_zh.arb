@@ -21,5 +21,12 @@
   "tituloDerrota" : "你輸了! 😢",
   "textoDerrota": "該單詞是: ",
   "textoVictoria": "恭喜你!\n \n與您的所有朋友分享結果",
-  "volverAlMenu": "返回菜單"
+  "volverAlMenu": "返回菜單",
+  "ajustes" : "設定",
+  "sonidosInterfaz": "📱 介面音效",
+  "sonidosTeclado": "⌨ 鍵盤音效",
+  "musica": "🎵 音樂",
+  "volumenMusica": "音樂音量：",
+  "cancion" : "已選歌曲：",
+  "cancionHint" : "選擇一首歌曲"
 }

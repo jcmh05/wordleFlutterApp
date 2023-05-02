@@ -61,6 +61,10 @@ class _KeyboardState extends State<Keyboard> {
           index -= 1;
         }
 
+        if( widget.teclado[index] == " "){
+          return SizedBox.shrink();
+        }
+
         return KeyButton(
             letter: widget.teclado[index],
             TeclaPulsada: TeclaPulsada,

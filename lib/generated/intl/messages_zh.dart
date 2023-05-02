@@ -22,22 +22,28 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "ajustes": MessageLookupByLibrary.simpleMessage("設定"),
         "boton1menu": MessageLookupByLibrary.simpleMessage("模式4"),
         "boton2menu": MessageLookupByLibrary.simpleMessage("經典"),
         "boton3menu": MessageLookupByLibrary.simpleMessage("模式6"),
         "botonFormateo": MessageLookupByLibrary.simpleMessage("格式化統計數據"),
+        "cancion": MessageLookupByLibrary.simpleMessage("已選歌曲："),
+        "cancionHint": MessageLookupByLibrary.simpleMessage("選擇一首歌曲"),
         "cerrar": MessageLookupByLibrary.simpleMessage("關閉"),
         "compartir": MessageLookupByLibrary.simpleMessage("分享"),
         "confirmarFormateo": MessageLookupByLibrary.simpleMessage("統計數據已刪除"),
         "enviar": MessageLookupByLibrary.simpleMessage("發送"),
         "ganadas": MessageLookupByLibrary.simpleMessage("🏆 獲勝局數"),
         "mejorRacha": MessageLookupByLibrary.simpleMessage("⚡ 最佳連勝"),
+        "musica": MessageLookupByLibrary.simpleMessage("🎵 音樂"),
         "palabraInexistente": MessageLookupByLibrary.simpleMessage(" 不在詞典中"),
         "palabraInsuficiente": MessageLookupByLibrary.simpleMessage("字母不足"),
         "partidas": MessageLookupByLibrary.simpleMessage("🕹 遊戲局數"),
         "perdidas": MessageLookupByLibrary.simpleMessage("🥀 失敗局數"),
         "porcentaje": MessageLookupByLibrary.simpleMessage("📈 勝率(%)"),
         "racha": MessageLookupByLibrary.simpleMessage("🔥 目前連勝"),
+        "sonidosInterfaz": MessageLookupByLibrary.simpleMessage("📱 介面音效"),
+        "sonidosTeclado": MessageLookupByLibrary.simpleMessage("⌨ 鍵盤音效"),
         "textoDerrota": MessageLookupByLibrary.simpleMessage("該單詞是: "),
         "textoVictoria":
             MessageLookupByLibrary.simpleMessage("恭喜你!\n \n與您的所有朋友分享結果"),
@@ -45,6 +51,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "tituloEstadisticas": MessageLookupByLibrary.simpleMessage("遊戲統計數據"),
         "tituloTop": MessageLookupByLibrary.simpleMessage("最佳遊戲"),
         "tituloVictoria": MessageLookupByLibrary.simpleMessage("你贏了! 🏆"),
+        "volumenMusica": MessageLookupByLibrary.simpleMessage("音樂音量："),
         "volverAlMenu": MessageLookupByLibrary.simpleMessage("返回菜單")
       };
 }

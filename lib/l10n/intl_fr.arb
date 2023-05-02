@@ -21,5 +21,12 @@
   "tituloDerrota" : "Tu as perdu! 😢",
   "textoDerrota": "Le mot était: ",
   "textoVictoria": "Félicitations!\n \nPartagez le résultat avec tous vos amis",
-  "volverAlMenu": "Retour au menu"
+  "volverAlMenu": "Retour au menu",
+  "ajustes" : "Paramètres",
+  "sonidosInterfaz": "📱 Sons d'interface",
+  "sonidosTeclado": "⌨ Sons de clavier",
+  "musica": "🎵 Musique",
+  "volumenMusica": "Volume de la musique:",
+  "cancion" : "Chanson sélectionnée:",
+  "cancionHint" : "Sélectionnez une chanson"
 }

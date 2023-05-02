@@ -258,12 +258,6 @@ class VentanaEstadisticas extends StatelessWidget {
           onPressed: () {
             Navigator.of(context).pop();
           },
-          child: Text(S.current.compartir),
-        ),
-        TextButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
           child: Text(S.current.cerrar),
         ),
       ],

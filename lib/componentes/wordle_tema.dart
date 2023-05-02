@@ -2,28 +2,39 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/services.dart';
 import 'package:soundpool/soundpool.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class WordleTema {
 
   // Almacenar este bool después para recordar la configuración
   static bool _temaClaro = true;
   static bool get temaClaro => _temaClaro;
+  static Soundpool _pool = Soundpool(streamType: StreamType.music);
 
+  static void sonidoInterfaz() async{
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool activado = prefs.getBool("sonidosInterfaz") ?? true;
 
-  static void sonidoDeCambio() async{
-    String sonido = temaClaro ? "assets/off.mp3" : "assets/on.mp3";
-    Soundpool pool = Soundpool(streamType: StreamType.notification);
-    int soundId = await rootBundle
-        .load(sonido)
-        .then((ByteData soundData) {
-      return pool.load(soundData);
-    });
-    int streamId = await pool.play(soundId);
+    if( activado ){
+      String sonido = temaClaro ? "assets/off.mp3" : "assets/on.mp3";
+      int soundId = await rootBundle
+          .load(sonido)
+          .then((ByteData soundData) {
+        return _pool.load(soundData);
+      });
+      int streamId = await _pool.play(soundId);
+    }
   }
 
-  static void cambiarTema() {
+  static void setTema(bool tema){
+    _temaClaro = tema;
+  }
+
+  static void cambiarTema() async{
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
     _temaClaro = !_temaClaro;
-    sonidoDeCambio();
+    prefs.setBool("modoClaro", _temaClaro);
+    sonidoInterfaz();
   }
 
 

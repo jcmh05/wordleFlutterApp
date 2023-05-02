@@ -21,6 +21,13 @@
     "tituloDerrota" : "You lost! 😢",
     "textoDerrota": "The word was: ",
     "textoVictoria": "Congratulations!\n \nShare the result with all your friends",
-    "volverAlMenu": "Back to menu"
+    "volverAlMenu": "Back to menu",
+    "ajustes" : "Settings",
+    "sonidosInterfaz": "📱 Interface sounds",
+    "sonidosTeclado": "⌨ Keyboard sounds",
+    "musica": "🎵 Music",
+    "volumenMusica": "Music volume:",
+    "cancion" : "Selected song:",
+    "cancionHint" : "Select a song"
 }
 

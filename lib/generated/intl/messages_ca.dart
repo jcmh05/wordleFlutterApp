@@ -22,11 +22,15 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "ajustes": MessageLookupByLibrary.simpleMessage("Configuració"),
         "boton1menu": MessageLookupByLibrary.simpleMessage("MODE 4"),
         "boton2menu": MessageLookupByLibrary.simpleMessage("CLÀSSIC"),
         "boton3menu": MessageLookupByLibrary.simpleMessage("MODE 6"),
         "botonFormateo":
             MessageLookupByLibrary.simpleMessage("Formatejar estadístiques"),
+        "cancion": MessageLookupByLibrary.simpleMessage("Cançó seleccionada:"),
+        "cancionHint":
+            MessageLookupByLibrary.simpleMessage("Selecciona una cançó"),
         "cerrar": MessageLookupByLibrary.simpleMessage("Tancar"),
         "compartir": MessageLookupByLibrary.simpleMessage("Compartir"),
         "confirmarFormateo":
@@ -35,6 +39,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "ganadas":
             MessageLookupByLibrary.simpleMessage("🏆 PARTIDES\nGUANYADES"),
         "mejorRacha": MessageLookupByLibrary.simpleMessage("⚡ MILLOR\nRATXA"),
+        "musica": MessageLookupByLibrary.simpleMessage("🎵 Música"),
         "palabraInexistente": MessageLookupByLibrary.simpleMessage(
             " no està en el nostre diccionari"),
         "palabraInsuficiente":
@@ -42,9 +47,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "partidas":
             MessageLookupByLibrary.simpleMessage("🕹 PARTIDES\nJUGADES"),
         "perdidas":
-            MessageLookupByLibrary.simpleMessage("🥀 PARTIDES\nPERDUTADES"),
+            MessageLookupByLibrary.simpleMessage("🥀 PARTIDES\nPERDUDES"),
         "porcentaje": MessageLookupByLibrary.simpleMessage("📈 VICTÒRIES\n(%)"),
         "racha": MessageLookupByLibrary.simpleMessage("🔥 RATXA\nACTUAL"),
+        "sonidosInterfaz":
+            MessageLookupByLibrary.simpleMessage("📱 Sons de la interfície"),
+        "sonidosTeclado":
+            MessageLookupByLibrary.simpleMessage("⌨ Sons del teclat"),
         "textoDerrota":
             MessageLookupByLibrary.simpleMessage("La paraula era: "),
         "textoVictoria": MessageLookupByLibrary.simpleMessage(
@@ -55,6 +64,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "tituloTop": MessageLookupByLibrary.simpleMessage("Millors Partides"),
         "tituloVictoria":
             MessageLookupByLibrary.simpleMessage("Has guanyat! 🏆"),
+        "volumenMusica":
+            MessageLookupByLibrary.simpleMessage("Volum de música:"),
         "volverAlMenu": MessageLookupByLibrary.simpleMessage("Tornar al menú")
       };
 }

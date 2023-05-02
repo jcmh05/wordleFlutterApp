@@ -21,5 +21,12 @@
   "tituloDerrota" : "Hai perso! 😢",
   "textoDerrota": "La parola era: ",
   "textoVictoria": "Congratulazioni!\n \nCondividi il risultato con tutti i tuoi amici",
-  "volverAlMenu": "Tornare al menu"
+  "volverAlMenu": "Tornare al menu",
+  "ajustes" : "Impostazioni",
+  "sonidosInterfaz": "📱 Suoni dell'interfaccia",
+  "sonidosTeclado": "⌨ Suoni della tastiera",
+  "musica": "🎵 Musica",
+  "volumenMusica": "Volume della musica:",
+  "cancion" : "Canzone selezionata:",
+  "cancionHint" : "Seleziona una canzone"
 }

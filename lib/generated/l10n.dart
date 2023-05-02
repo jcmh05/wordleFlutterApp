@@ -279,6 +279,76 @@ class S {
       args: [],
     );
   }
+
+  /// `Settings`
+  String get ajustes {
+    return Intl.message(
+      'Settings',
+      name: 'ajustes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `📱 Interface sounds`
+  String get sonidosInterfaz {
+    return Intl.message(
+      '📱 Interface sounds',
+      name: 'sonidosInterfaz',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `⌨ Keyboard sounds`
+  String get sonidosTeclado {
+    return Intl.message(
+      '⌨ Keyboard sounds',
+      name: 'sonidosTeclado',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `🎵 Music`
+  String get musica {
+    return Intl.message(
+      '🎵 Music',
+      name: 'musica',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Music volume:`
+  String get volumenMusica {
+    return Intl.message(
+      'Music volume:',
+      name: 'volumenMusica',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Selected song:`
+  String get cancion {
+    return Intl.message(
+      'Selected song:',
+      name: 'cancion',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select a song`
+  String get cancionHint {
+    return Intl.message(
+      'Select a song',
+      name: 'cancionHint',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

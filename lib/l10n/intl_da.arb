@@ -21,5 +21,12 @@
   "tituloDerrota" : "Verloren! 😢",
   "textoDerrota": "Das Wort war: ",
   "textoVictoria": "Herzlichen Glückwunsch!\n \nTeile das Ergebnis mit all deinen Freunden",
-  "volverAlMenu": "Zurück zum Menü"
+  "volverAlMenu": "Zurück zum Menü",
+  "ajustes" : "Einstellungen",
+  "sonidosInterfaz": "📱 Benutzeroberflächenklänge",
+  "sonidosTeclado": "⌨ Tastaturklänge",
+  "musica": "🎵 Musik",
+  "volumenMusica": "Musiklautstärke:",
+  "cancion" : "Ausgewähltes Lied:",
+  "cancionHint" : "Wähle ein Lied aus"
 }

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:Wordel/componentes/componentes.dart';
 import 'package:Wordel/modelos/modelos.dart';
@@ -5,7 +7,8 @@ import 'package:Wordel/funciones/funciones.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:confetti/confetti.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:soundpool/soundpool.dart';
+import 'package:flutter/services.dart';
 import '../generated/l10n.dart';
 
 
@@ -20,6 +23,7 @@ class Juego extends StatefulWidget{
 }
 
 class _JuegoState extends State<Juego> {
+  static Soundpool _pool = Soundpool(streamType: StreamType.music);
   bool juegoTerminado = false;
 
   final Map<String, List<String>> teclados = {
@@ -27,9 +31,9 @@ class _JuegoState extends State<Juego> {
     'en': ['Q','W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', 'BORRAR'],
     'fr': ['A','Z', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', 'Q', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'W', 'X', 'C', 'V', 'B', 'N', 'BORRAR'],
     'it': ['Q','W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', 'BORRAR'],
-    'ca': ['Q','W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', 'BORRAR'],
-    'da': ['Q','W', 'E', 'R', 'T', 'Z', 'U', 'I', 'O', 'P', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'Y', 'X', 'C', 'V', 'B', 'N', 'M', 'BORRAR'],
-    'zh': ['手','田', '水', '口', '廿', '卜', '山', '戈', '人', '心', '日', '尸', '木', '火', '土', '竹', '十', '大', '中', '難', '金', '女', '月', '弓','BORRAR']
+    'ca': ['Q','W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'Z', ' ','X', 'C', 'V', 'B', 'N', 'M', 'BORRAR'],
+    'da': ['Q','W', 'E', 'R', 'T', 'Z', 'U', 'I', 'O', 'P', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'Y', ' ','X', 'C', 'V', 'B', 'N', 'M', 'BORRAR'],
+    'zh': ['手','田', '水', '口', '廿', '卜', '山', '戈', '人', '心', '日', '尸', '木', '火', '土', '竹', '十', '大', '中', '難', ' ', ' ','金', '女', '月', '弓','BORRAR']
   };
 
   // PARÁMETROS JUEGO
@@ -71,6 +75,7 @@ class _JuegoState extends State<Juego> {
     );
   }
 
+  // Si ganamos, actualiza el top de mejores partidas
   void actualizaMejoresPartidas(double puntuacion) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -97,8 +102,6 @@ class _JuegoState extends State<Juego> {
       prefs.setString('top${i + 1}Nombre', mejoresNombres[i]);
     }
   }
-
-
 
   // Actualiza las estadísticas según el resultado de la partida
   void actualizaEstadisticas(bool victoria) async{
@@ -127,11 +130,99 @@ class _JuegoState extends State<Juego> {
     prefs.setInt('partidas',partidas);
   }
 
+  // Reproduce sonidos de interfaz de forma asíncrona
+  static void sonidoInterfaz(String nombre) async{
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool activado = prefs.getBool("sonidosInterfaz") ?? true;
+
+    if( activado ){
+      int soundId = await rootBundle
+          .load("assets/${nombre}")
+          .then((ByteData soundData) {
+        return _pool.load(soundData);
+      });
+      int streamId = await _pool.play(soundId);
+    }
+  }
+
+  // Gestiona que sonido debe sonar para cada tecla
+  void sonidoTecla(String tecla) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool activado = prefs.getBool("sonidosTeclado") ?? true;
+    if( activado ){
+      if( tecla == "BORRAR" ){
+        sonidoInterfaz("sounds_space.wav");
+      }else{
+        List<String> sounds = [
+          'sounds_key01.wav',
+          'sounds_key02.wav',
+          'sounds_key03.wav',
+          'sounds_key04.wav',
+          'sounds_key05.wav',
+          'sounds_key06.wav',
+        ];
+
+        String randomSound = sounds[Random().nextInt(sounds.length)];
+        int soundId = await rootBundle
+            .load("assets/${randomSound}")
+            .then((ByteData soundData) {
+          return _pool.load(soundData);
+        });
+        int streamId = await _pool.play(soundId);
+      }
+    }
+  }
+
+  // Función que actualiza los colores del teclado
+  void actualizaTeclado(String palabraIntroducida){
+    // Recorremos todas las letras
+    for( int i=0 ; i<teclado.length; i++){
+      var letra = teclado[i].toLowerCase();
+      // Si la letra del teclado está en la palabraIntroducida
+      if ( palabraIntroducida.contains(letra)){
+        // Para cada letra de ese tipo en la palabra
+        for(int j=0; j<palabraIntroducida.length; j++){
+          if(letra == palabraIntroducida[j]){
+            int color = devolverColor(palabra, palabraIntroducida, j);
+            listaEstados[i] = listaEstados[i]==3 ? 3 : color;
+          }
+        }
+      }
+    }
+  }
+
+  // Función llamada cada vez que se envía una palabra
+  void letraEnviada(String palabraIntroducida){
+    // Si la palabra está en el diccionario
+    setState(() {
+      filaActual++;
+      letrasComprobadas.addAll(letrasFilaActual);
+      letrasFilaActual = [];
+      actualizaTeclado(palabraIntroducida);
+      // Comprobamos si la palabra es acertada
+      if( palabraIntroducida == palabra){
+        int n_intentos = letrasComprobadas.length ~/ palabra.length;
+        int n_maximos = palabra.length == 4 ? 5 : palabra.length==5 ? 6 : 7;
+        _controller.play();
+        actualizaEstadisticas(true);
+        actualizaMejoresPartidas( 100 - ((n_intentos/n_maximos)*100) );
+        juegoTerminado = true;
+        letrasFilaActual = List.filled(palabra.length, " ");
+        showDialog(context: context, builder:(context){return VentanaFinDeJuego(victoria: true, palabra: palabra, resultado: letrasComprobadas);});
+      }else if( filaActual == (widget.modoDeJuego+1) ){
+        // Si se nos acaban los intentos
+        actualizaEstadisticas(false);
+        showDialog(context: context, builder:(context){return VentanaFinDeJuego(victoria: false, palabra: palabra, resultado: letrasComprobadas);});
+      }
+    });
+  }
+
   @override
   Widget build( BuildContext context) {
 
-    // Función llamada con cada tecla pulsada
+    // Función anónima llamada con cada tecla pulsada
     final teclaPulsada = (String tecla) {
+      sonidoTecla(tecla);
       if( letrasFilaActual.length > 0 && tecla == 'BORRAR'){
         letrasFilaActual.removeLast();
       }else if ( tecla != "BORRAR"){
@@ -149,46 +240,8 @@ class _JuegoState extends State<Juego> {
       if (letrasFilaActual.length == 4 && letrasFilaActual.join('') == 'DIME') {
         mostrarMensaje(palabra);
       }
+
     };
-
-    // Función que actualiza los colores del teclado
-    void actualizaTeclado(String palabraIntroducida){
-      // Recorremos todas las letras
-      for( int i=0 ; i<teclado.length; i++){
-        var letra = teclado[i].toLowerCase();
-        if ( palabraIntroducida.contains(letra)){
-          // Para cada letra de la palabra introducida
-          int color = devolverColor(palabra, palabraIntroducida, palabraIntroducida.indexOf(letra));
-          listaEstados[i] = listaEstados[i]==3 ? 3 : listaEstados[i]==1 ? 1 : color;
-        }
-      }
-    }
-
-    // Función llamada cada vez que se envía una palabra
-    void letraEnviada(String palabraIntroducida){
-      // Si la palabra está en el diccionario
-      setState(() {
-        filaActual++;
-        letrasComprobadas.addAll(letrasFilaActual);
-        letrasFilaActual = [];
-        actualizaTeclado(palabraIntroducida);
-        // Comprobamos si la palabra es acertada
-        if( palabraIntroducida == palabra){
-          int n_intentos = letrasComprobadas.length ~/ palabra.length;
-          int n_maximos = palabra.length == 4 ? 5 : palabra.length==5 ? 6 : 7;
-          _controller.play();
-          actualizaEstadisticas(true);
-          actualizaMejoresPartidas( 100 - ((n_intentos/n_maximos)*100) );
-          juegoTerminado = true;
-          letrasFilaActual = List.filled(palabra.length, " ");
-          showDialog(context: context, builder:(context){return VentanaFinDeJuego(victoria: true, palabra: palabra, resultado: letrasComprobadas);});
-        }else if( filaActual == (widget.modoDeJuego+1) ){
-          // Si se nos acaban los intentos
-          actualizaEstadisticas(false);
-          showDialog(context: context, builder:(context){return VentanaFinDeJuego(victoria: false, palabra: palabra, resultado: letrasComprobadas);});
-        }
-      });
-    }
 
     return Column(
       children: [
@@ -241,6 +294,7 @@ class _JuegoState extends State<Juego> {
             ),
           ),
           onPressed: () {
+            sonidoInterfaz('sonidoEnviar.mp3');
             if (!juegoTerminado){
               // Acción de enviar
               if( letrasFilaActual.length < widget.modoDeJuego){

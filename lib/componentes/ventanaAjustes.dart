@@ -1,74 +1,185 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:audioplayers/audioplayers.dart';
+
+import '../generated/l10n.dart';
 
 class VentanaAjustes extends StatefulWidget {
-  const VentanaAjustes({Key? key}) : super(key: key);
+  final AudioPlayer player;
+  const VentanaAjustes({Key? key, required this.player}) : super(key: key);
 
   @override
   _VentanaAjustesState createState() => _VentanaAjustesState();
 }
 
 class _VentanaAjustesState extends State<VentanaAjustes> {
-  bool _ajuste1 = false;
-  bool _ajuste2 = true;
+  bool sonidosInterfaz = true;
+  bool sonidosTeclado = false;
+  double _volumen = 0.5; // valor de volumen predeterminado
+  bool musica = true;
+  String _cancionSeleccionada = "Elevator1.mp3";
+  final _scrollController = FixedExtentScrollController();
+  List<String> canciones = ["Elevator1.mp3","Elevator2.mp3","Jazz1.mp3","Tarzan.mp3"];
 
-  void _ajuste1Changed(bool value) {
+  @override
+  void initState() {
+    super.initState();
+    loadPreferences();
+  }
+
+  void loadPreferences() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      _ajuste1 = value;
+      sonidosInterfaz = prefs.getBool('sonidosInterfaz') ?? true;
+      sonidosTeclado= prefs.getBool('sonidosTeclado') ?? true;
+      musica = prefs.getBool('musica') ?? true;
+      _volumen = prefs.getDouble('volumenMusica') ?? 0.5;
+      _cancionSeleccionada = prefs.getString("cancionEscogida") ?? "Elevator1.mp3";
     });
-    // Llamar a una función al cambiar el estado de _ajuste1
-    _handleAjuste1(_ajuste1);
   }
 
-  void _ajuste2Changed(bool value) {
+  void _setSonidosInterfaz(bool value) async{
     setState(() {
-      _ajuste2 = value;
+      sonidosInterfaz = value;
     });
-    // Llamar a una función al cambiar el estado de _ajuste2
-    _handleAjuste2(_ajuste2);
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool("sonidosInterfaz", value);
   }
 
-  // Función que se llama al cambiar el estado de _ajuste1
-  void _handleAjuste1(bool value) {
-    print('Ajuste 1 cambió a $value');
+  void _setSonidosTeclado(bool value) async{
+    setState(() {
+      sonidosTeclado = value;
+    });
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool("sonidosTeclado", value);
   }
 
-  // Función que se llama al cambiar el estado de _ajuste2
-  void _handleAjuste2(bool value) {
-    print('Ajuste 2 cambió a $value');
+  void _setMusica(bool value) async{
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool("musica", value);
+    if( !value ){
+      // Paramos la música
+      widget.player.stop();
+    }else{
+      String cancion = prefs.getString("cancionEscogida") ?? 'Elevator1.mp3';
+      double volumen = prefs.getDouble("volumenMusica") ?? 0.15;
+      await widget.player.setVolume(volumen);
+      await widget.player.play(AssetSource(cancion));
+      await widget.player.setReleaseMode(ReleaseMode.loop);
+    }
+    setState(() {
+      musica = value;
+    });
+  }
+
+  void _volumenMusica(double volumen) async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setDouble('volumenMusica', volumen);
+    widget.player.setVolume(volumen);
+  }
+
+  void cancionElegida(String cancion) async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('cancionEscogida', cancion);
+    if( musica ){
+      await widget.player.stop();
+      await widget.player.play(AssetSource(cancion));
+      await widget.player.setReleaseMode(ReleaseMode.loop);
+    }
+    setState(() {
+      _cancionSeleccionada = cancion;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Center(
-        child: Text('Ajustes'),
+        child: Text(S.current.ajustes),
       ),
       content: SingleChildScrollView(
-        child: Column(
-          children: [
-            // Ajuste 1
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text('Ajuste 1'),
-                Switch(
-                  value: _ajuste1,
-                  onChanged: _ajuste1Changed,
-                ),
-              ],
-            ),
-            // Ajuste 2
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text('Ajuste 2'),
-                Switch(
-                  value: _ajuste2,
-                  onChanged: _ajuste2Changed,
-                ),
-              ],
-            ),
-          ],
+        child: Container(
+          width: MediaQuery.of(context).size.width * 0.8, // Ajusta el ancho del AlertDialog
+          child: Column(
+            children: [
+              // Ajuste 1
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(S.current.sonidosInterfaz),
+                  Switch(
+                    value: sonidosInterfaz,
+                    onChanged: _setSonidosInterfaz,
+                  ),
+                ],
+              ),
+
+              // Ajuste 2
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(S.current.sonidosTeclado),
+                  Switch(
+                    value: sonidosTeclado,
+                    onChanged: _setSonidosTeclado,
+                  ),
+                ],
+              ),
+              // Ajuste 3
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(S.current.musica),
+                  Switch(
+                    value: musica,
+                    onChanged: _setMusica,
+                  ),
+                ],
+              ),
+
+              Row(
+                children: [
+                  Text(
+                    _volumen == 0 ? "🔇" : _volumen <= 0.15 ? "🔈": _volumen <= 0.5 ? "🔉" : "🔊",
+                  ),
+                  Expanded(
+                    child: Slider(
+                      value: _volumen,
+                      min: 0.0,
+                      max: 1.0,
+                      divisions: 20,
+                      label: S.current.volumenMusica + " ${(_volumen * 100).toInt()}%",
+                      onChanged: (value) {
+                        setState(() {
+                          _volumen = value;
+                        });
+                      },
+                      onChangeEnd: (value) {
+                        _volumenMusica(value);
+                      },
+                    ),
+                  ),
+                ]
+              ),
+              SizedBox(height: 16),
+              Text(S.current.cancion),
+              SizedBox(height: 15),
+              DropdownButton<String>(
+                hint: Text(S.current.cancionHint),
+                value: _cancionSeleccionada,
+                onChanged: (newValue) {
+                  cancionElegida(newValue!);
+                },
+                items: canciones.map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+              ),
+            ],
+          ),
         ),
       ),
       actions: [
@@ -76,7 +187,7 @@ class _VentanaAjustesState extends State<VentanaAjustes> {
           onPressed: () {
             Navigator.of(context).pop();
           },
-          child: Text('Cerrar'),
+          child: Text(S.current.cerrar),
         ),
       ],
       shape: RoundedRectangleBorder(

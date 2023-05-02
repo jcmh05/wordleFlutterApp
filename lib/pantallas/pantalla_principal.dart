@@ -4,6 +4,8 @@ import 'package:Wordel/componentes/componentes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import '../generated/l10n.dart';
+import 'package:flutter/services.dart';
+import 'package:soundpool/soundpool.dart';
 
 
 
@@ -20,9 +22,11 @@ class PantallaPrincipal extends StatefulWidget{
 enum MenuOptions { opcion1, opcion2, opcion3 }
 
 class _PantallaPrincipalState extends State<PantallaPrincipal> {
+  static Soundpool _pool = Soundpool(streamType: StreamType.music);
   String idiomaSeleccionado = "es";
 
   void _cambiarIdioma(String nuevoIdioma) async{
+    sonidoInterfaz('pop2');
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString("idioma", nuevoIdioma);
     Locale idioma = Locale('$nuevoIdioma');
@@ -36,20 +40,38 @@ class _PantallaPrincipalState extends State<PantallaPrincipal> {
     setState(() {});
   }
 
-  void cargarIdiomaInicio() async {
+  void cargarPreferencias() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String nuevoIdioma = prefs.getString('idioma') ?? 'es';
     Locale idioma = Locale('$nuevoIdioma');
     idiomaSeleccionado = nuevoIdioma;
+    bool modoClaro = prefs.getBool("modoClaro") ?? true;
     setState(() {
       S.load(idioma);
+      if ( !modoClaro ){
+        WordleTema.setTema(false);
+      }
     });
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    cargarIdiomaInicio();
+    cargarPreferencias();
+  }
+
+  static void sonidoInterfaz(String nombre) async{
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool activado = prefs.getBool("sonidosInterfaz") ?? true;
+
+    if( activado ){
+      int soundId = await rootBundle
+          .load("assets/${nombre}.mp3")
+          .then((ByteData soundData) {
+        return _pool.load(soundData);
+      });
+      int streamId = await _pool.play(soundId);
+    }
   }
 
 
@@ -74,6 +96,7 @@ class _PantallaPrincipalState extends State<PantallaPrincipal> {
               onSelected: _cambiarIdioma,
               icon: Image.asset('assets/bandera_${idiomaSeleccionado}.png'),
               itemBuilder: (BuildContext context) {
+                sonidoInterfaz('pop1');
                 return [
                   PopupMenuItem<String>(
                     value: 'es',
