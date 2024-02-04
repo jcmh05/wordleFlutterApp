@@ -1,7 +1,7 @@
 {
-  "boton1menu": "MODO 4",
-  "boton2menu": "CLASSICO",
-  "boton3menu": "MODO 6",
+  "boton1menu": "PAROLA DEL GIORNO",
+  "boton2menu": "FORMAZIONE",
+  "boton3menu": "TUTORIALE",
   "tituloEstadisticas": "Statistiche di gioco",
   "partidas": "🕹 PARTITE\nGIOCATE",
   "ganadas": "🏆 PARTITE\nVINCITE",
@@ -21,6 +21,8 @@
   "tituloDerrota" : "Hai perso! 😢",
   "textoDerrota": "La parola era: ",
   "textoVictoria": "Congratulazioni!\n \nCondividi il risultato con tutti i tuoi amici",
+  "textoVictoriaEntrenamiento": "Congratulazioni!\n\nGioca di nuovo quanto vuoi",
+  "avvisoEstadisticas": "Vengono memorizzate solo le statistiche delle partite giocate nella parola del giorno",
   "volverAlMenu": "Tornare al menu",
   "ajustes" : "Impostazioni",
   "sonidosInterfaz": "📱 Suoni dell'interfaccia",
@@ -28,5 +30,15 @@
   "musica": "🎵 Musica",
   "volumenMusica": "Volume della musica:",
   "cancion" : "Canzone selezionata:",
-  "cancionHint" : "Seleziona una canzone"
+  "cancionHint" : "Seleziona una canzone",
+  "modo4": "MODALITÀ 4",
+  "modo5": "CLASSICO",
+  "modo6": "MODALITÀ 6",
+  "textoEntrenamiento": "Esercitati in modo illimitato!",
+  "tutorialTitulo": "COME GIOCARE",
+  "tutorialTexto": "Il gioco consiste nel indovinare la parola nascosta. La parola cambia ogni giorno e sarà sempre la stessa per tutti.\n\nOgni tentativo deve essere una parola valida. Inserendo una parola, ogni lettera viene colorata in base alla sua presenza o meno nella parola e se è nella posizione corretta.",
+  "tutorialVerde": "VERDE significa che la lettera è nella parola ed è nella posizione CORRETTA",
+  "tutorialAmarillo": "GIALLO significa che la lettera è presente nella parola ma è nella posizione SBAGLIATA",
+  "tutorialGris": "GRIGIO significa che la lettera NON è presente nella parola",
+  "bandera": "\uD83C\uDDEE\uD83C\uDDF9"
 }

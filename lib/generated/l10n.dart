@@ -50,30 +50,30 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
-  /// `MODE 4`
+  /// `WORD OF THE DAY`
   String get boton1menu {
     return Intl.message(
-      'MODE 4',
+      'WORD OF THE DAY',
       name: 'boton1menu',
       desc: '',
       args: [],
     );
   }
 
-  /// `CLASSIC`
+  /// `TRAINING`
   String get boton2menu {
     return Intl.message(
-      'CLASSIC',
+      'TRAINING',
       name: 'boton2menu',
       desc: '',
       args: [],
     );
   }
 
-  /// `MODE 6`
+  /// `TUTORIAL`
   String get boton3menu {
     return Intl.message(
-      'MODE 6',
+      'TUTORIAL',
       name: 'boton3menu',
       desc: '',
       args: [],
@@ -210,10 +210,10 @@ class S {
     );
   }
 
-  /// `is not in our dictionary`
+  /// ` is not in our dictionary`
   String get palabraInexistente {
     return Intl.message(
-      'is not in our dictionary',
+      ' is not in our dictionary',
       name: 'palabraInexistente',
       desc: '',
       args: [],
@@ -265,6 +265,26 @@ class S {
     return Intl.message(
       'Congratulations!\n \nShare the result with all your friends',
       name: 'textoVictoria',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Congratulations!\n\nPlay again as much as you want`
+  String get textoVictoriaEntrenamiento {
+    return Intl.message(
+      'Congratulations!\n\nPlay again as much as you want',
+      name: 'textoVictoriaEntrenamiento',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Statistics are only stored for games played in the word of the day`
+  String get avisoEstadisticas {
+    return Intl.message(
+      'Statistics are only stored for games played in the word of the day',
+      name: 'avisoEstadisticas',
       desc: '',
       args: [],
     );
@@ -345,6 +365,106 @@ class S {
     return Intl.message(
       'Select a song',
       name: 'cancionHint',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `MODE 4`
+  String get modo4 {
+    return Intl.message(
+      'MODE 4',
+      name: 'modo4',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `CLASSIC`
+  String get modo5 {
+    return Intl.message(
+      'CLASSIC',
+      name: 'modo5',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `MODE 6`
+  String get modo6 {
+    return Intl.message(
+      'MODE 6',
+      name: 'modo6',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Practice unlimitedly!`
+  String get textoEntrenamiento {
+    return Intl.message(
+      'Practice unlimitedly!',
+      name: 'textoEntrenamiento',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `HOW TO PLAY`
+  String get tutorialTitulo {
+    return Intl.message(
+      'HOW TO PLAY',
+      name: 'tutorialTitulo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The game consists of guessing the hidden word. The word changes every day and will always be the same for everyone.\n\nEach attempt must be a valid word. When entering a word, each letter is colored based on whether it is present or not in the word, and whether it is in the correct position.`
+  String get tutorialTexto {
+    return Intl.message(
+      'The game consists of guessing the hidden word. The word changes every day and will always be the same for everyone.\n\nEach attempt must be a valid word. When entering a word, each letter is colored based on whether it is present or not in the word, and whether it is in the correct position.',
+      name: 'tutorialTexto',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `GREEN means the letter is in the word and is in the CORRECT position`
+  String get tutorialVerde {
+    return Intl.message(
+      'GREEN means the letter is in the word and is in the CORRECT position',
+      name: 'tutorialVerde',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `YELLOW means the letter is present in the word but is in the WRONG position`
+  String get tutorialAmarillo {
+    return Intl.message(
+      'YELLOW means the letter is present in the word but is in the WRONG position',
+      name: 'tutorialAmarillo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `GRAY means the letter is NOT present in the word`
+  String get tutorialGris {
+    return Intl.message(
+      'GRAY means the letter is NOT present in the word',
+      name: 'tutorialGris',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `🇬🇧`
+  String get bandera {
+    return Intl.message(
+      '🇬🇧',
+      name: 'bandera',
       desc: '',
       args: [],
     );

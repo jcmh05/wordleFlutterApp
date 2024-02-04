@@ -23,9 +23,12 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "ajustes": MessageLookupByLibrary.simpleMessage("Ajustes"),
-        "boton1menu": MessageLookupByLibrary.simpleMessage("MODO 4"),
-        "boton2menu": MessageLookupByLibrary.simpleMessage("CLÁSICO"),
-        "boton3menu": MessageLookupByLibrary.simpleMessage("MODO 6"),
+        "avisoEstadisticas": MessageLookupByLibrary.simpleMessage(
+            "Solo se almacenan los datos de las partidas jugadas en la palabra del día"),
+        "bandera": MessageLookupByLibrary.simpleMessage("🇪🇸"),
+        "boton1menu": MessageLookupByLibrary.simpleMessage("PALABRA DEL DÍA"),
+        "boton2menu": MessageLookupByLibrary.simpleMessage("ENTRENAMIENTO"),
+        "boton3menu": MessageLookupByLibrary.simpleMessage("TUTORIAL"),
         "botonFormateo":
             MessageLookupByLibrary.simpleMessage("Formatear estadísticas"),
         "cancion":
@@ -39,6 +42,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "enviar": MessageLookupByLibrary.simpleMessage("ENVIAR"),
         "ganadas": MessageLookupByLibrary.simpleMessage("🏆 PARTIDAS\nGANADAS"),
         "mejorRacha": MessageLookupByLibrary.simpleMessage("⚡ MEJOR\nRACHA"),
+        "modo4": MessageLookupByLibrary.simpleMessage("MODO 4"),
+        "modo5": MessageLookupByLibrary.simpleMessage("CLÁSICO"),
+        "modo6": MessageLookupByLibrary.simpleMessage("MODO 6"),
         "musica": MessageLookupByLibrary.simpleMessage("🎵 Música"),
         "palabraInexistente": MessageLookupByLibrary.simpleMessage(
             " no está en nuestro diccionario"),
@@ -56,13 +62,26 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("⌨ Sonidos de teclado"),
         "textoDerrota":
             MessageLookupByLibrary.simpleMessage("La palabra era: "),
+        "textoEntrenamiento":
+            MessageLookupByLibrary.simpleMessage("¡Practica ilimitadamente!"),
         "textoVictoria": MessageLookupByLibrary.simpleMessage(
             "¡Enhorabuena!\n \nComparte el resultado con todos tus amigos"),
+        "textoVictoriaEntrenamiento": MessageLookupByLibrary.simpleMessage(
+            "¡Enhorabuena!\n \nVuelve a jugar tanto como quieras"),
         "tituloDerrota": MessageLookupByLibrary.simpleMessage("¡Perdiste! 😢"),
         "tituloEstadisticas":
             MessageLookupByLibrary.simpleMessage("Estadísticas de juego"),
         "tituloTop": MessageLookupByLibrary.simpleMessage("Mejores Partidas"),
         "tituloVictoria": MessageLookupByLibrary.simpleMessage("¡Ganaste! 🏆"),
+        "tutorialAmarillo": MessageLookupByLibrary.simpleMessage(
+            "AMARILLO significa que la letra está presente en la palabra pero está en la posición INCORRECTA"),
+        "tutorialGris": MessageLookupByLibrary.simpleMessage(
+            "GRIS significa que la letra NO está presente en la palabra"),
+        "tutorialTexto": MessageLookupByLibrary.simpleMessage(
+            "El juego consiste en adivinar la palabra oculta. La palabra cambia cada día y siempre será la misma para todas las personas\n\nCada intento debe ser una palabra válida. Al introducir una palabra cada letra se pinta de un color en función de si se encuentra o no en la palabra y si se encuentra en la posición correcta"),
+        "tutorialTitulo": MessageLookupByLibrary.simpleMessage("COMO JUGAR"),
+        "tutorialVerde": MessageLookupByLibrary.simpleMessage(
+            "VERDE significa que la letra se encuentra en la palabra y está en la posición CORRECTA"),
         "volumenMusica":
             MessageLookupByLibrary.simpleMessage("Volumen Música:"),
         "volverAlMenu": MessageLookupByLibrary.simpleMessage("Volver al menú")

@@ -30,7 +30,7 @@ class CasillaDeLetra extends StatelessWidget {
         colorLetra = Colors.white;
         break;
       case 4: // Siguiente letra en dibujarse
-        colorBorde = Theme.of(context).accentColor;
+        colorBorde = Theme.of(context).indicatorColor;
         break;
     }
 

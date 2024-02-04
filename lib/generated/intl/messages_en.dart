@@ -23,9 +23,12 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "ajustes": MessageLookupByLibrary.simpleMessage("Settings"),
-        "boton1menu": MessageLookupByLibrary.simpleMessage("MODE 4"),
-        "boton2menu": MessageLookupByLibrary.simpleMessage("CLASSIC"),
-        "boton3menu": MessageLookupByLibrary.simpleMessage("MODE 6"),
+        "avisoEstadisticas": MessageLookupByLibrary.simpleMessage(
+            "Statistics are only stored for games played in the word of the day"),
+        "bandera": MessageLookupByLibrary.simpleMessage("🇬🇧"),
+        "boton1menu": MessageLookupByLibrary.simpleMessage("WORD OF THE DAY"),
+        "boton2menu": MessageLookupByLibrary.simpleMessage("TRAINING"),
+        "boton3menu": MessageLookupByLibrary.simpleMessage("TUTORIAL"),
         "botonFormateo": MessageLookupByLibrary.simpleMessage("Format Stats"),
         "cancion": MessageLookupByLibrary.simpleMessage("Selected song:"),
         "cancionHint": MessageLookupByLibrary.simpleMessage("Select a song"),
@@ -36,9 +39,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "enviar": MessageLookupByLibrary.simpleMessage("SEND"),
         "ganadas": MessageLookupByLibrary.simpleMessage("🏆 GAMES\nWON"),
         "mejorRacha": MessageLookupByLibrary.simpleMessage("⚡ BEST\nSTREAK"),
+        "modo4": MessageLookupByLibrary.simpleMessage("MODE 4"),
+        "modo5": MessageLookupByLibrary.simpleMessage("CLASSIC"),
+        "modo6": MessageLookupByLibrary.simpleMessage("MODE 6"),
         "musica": MessageLookupByLibrary.simpleMessage("🎵 Music"),
         "palabraInexistente":
-            MessageLookupByLibrary.simpleMessage("is not in our dictionary"),
+            MessageLookupByLibrary.simpleMessage(" is not in our dictionary"),
         "palabraInsuficiente":
             MessageLookupByLibrary.simpleMessage("Not enough letters"),
         "partidas": MessageLookupByLibrary.simpleMessage("🕹 GAMES\nPLAYED"),
@@ -50,13 +56,26 @@ class MessageLookup extends MessageLookupByLibrary {
         "sonidosTeclado":
             MessageLookupByLibrary.simpleMessage("⌨ Keyboard sounds"),
         "textoDerrota": MessageLookupByLibrary.simpleMessage("The word was: "),
+        "textoEntrenamiento":
+            MessageLookupByLibrary.simpleMessage("Practice unlimitedly!"),
         "textoVictoria": MessageLookupByLibrary.simpleMessage(
             "Congratulations!\n \nShare the result with all your friends"),
+        "textoVictoriaEntrenamiento": MessageLookupByLibrary.simpleMessage(
+            "Congratulations!\n\nPlay again as much as you want"),
         "tituloDerrota": MessageLookupByLibrary.simpleMessage("You lost! 😢"),
         "tituloEstadisticas":
             MessageLookupByLibrary.simpleMessage("Game Statistics"),
         "tituloTop": MessageLookupByLibrary.simpleMessage("Top Games"),
         "tituloVictoria": MessageLookupByLibrary.simpleMessage("You won! 🏆"),
+        "tutorialAmarillo": MessageLookupByLibrary.simpleMessage(
+            "YELLOW means the letter is present in the word but is in the WRONG position"),
+        "tutorialGris": MessageLookupByLibrary.simpleMessage(
+            "GRAY means the letter is NOT present in the word"),
+        "tutorialTexto": MessageLookupByLibrary.simpleMessage(
+            "The game consists of guessing the hidden word. The word changes every day and will always be the same for everyone.\n\nEach attempt must be a valid word. When entering a word, each letter is colored based on whether it is present or not in the word, and whether it is in the correct position."),
+        "tutorialTitulo": MessageLookupByLibrary.simpleMessage("HOW TO PLAY"),
+        "tutorialVerde": MessageLookupByLibrary.simpleMessage(
+            "GREEN means the letter is in the word and is in the CORRECT position"),
         "volumenMusica": MessageLookupByLibrary.simpleMessage("Music volume:"),
         "volverAlMenu": MessageLookupByLibrary.simpleMessage("Back to menu")
       };

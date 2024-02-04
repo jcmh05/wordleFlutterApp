@@ -19,7 +19,7 @@ class _VentanaAjustesState extends State<VentanaAjustes> {
   bool musica = true;
   String _cancionSeleccionada = "Elevator1.mp3";
   final _scrollController = FixedExtentScrollController();
-  List<String> canciones = ["Elevator1.mp3","Elevator2.mp3","Jazz1.mp3","Tarzan.mp3"];
+  List<String> canciones = ["Elevator Music #1","Elevator Music #2","Jazz #1","Jazz #2","Blue Label"];
 
   @override
   void initState() {
@@ -32,7 +32,7 @@ class _VentanaAjustesState extends State<VentanaAjustes> {
     setState(() {
       sonidosInterfaz = prefs.getBool('sonidosInterfaz') ?? true;
       sonidosTeclado= prefs.getBool('sonidosTeclado') ?? true;
-      musica = prefs.getBool('musica') ?? true;
+      musica = prefs.getBool('musica') ?? false;
       _volumen = prefs.getDouble('volumenMusica') ?? 0.5;
       _cancionSeleccionada = prefs.getString("cancionEscogida") ?? "Elevator1.mp3";
     });
@@ -78,8 +78,15 @@ class _VentanaAjustesState extends State<VentanaAjustes> {
     widget.player.setVolume(volumen);
   }
 
-  void cancionElegida(String cancion) async{
+  void cancionElegida(String seleccion) async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    String cancion = "Elevator1.mp3";
+    if( seleccion == "Elevator Music #2"){ cancion = "Elevator2.mp3"; }
+    if( seleccion == "Jazz #1"){ cancion = "Jazz1.mp3"; }
+    if( seleccion == "Jazz #2"){ cancion = "Jazz2.mp3"; }
+    if( seleccion == "Blue Label"){ cancion = "Elegant.mp3"; }
+
     await prefs.setString('cancionEscogida', cancion);
     if( musica ){
       await widget.player.stop();
@@ -167,7 +174,7 @@ class _VentanaAjustesState extends State<VentanaAjustes> {
               SizedBox(height: 15),
               DropdownButton<String>(
                 hint: Text(S.current.cancionHint),
-                value: _cancionSeleccionada,
+                value: _cancionSeleccionada == "Elevator1.mp3" ? "Elevator Music #1" : _cancionSeleccionada == "Elevator2.mp3" ? "Elevator Music #2" : _cancionSeleccionada == "Jazz1.mp3" ? "Jazz #1" : _cancionSeleccionada == "Jazz2.mp3" ? "Jazz #2" : "Blue Label",
                 onChanged: (newValue) {
                   cancionElegida(newValue!);
                 },

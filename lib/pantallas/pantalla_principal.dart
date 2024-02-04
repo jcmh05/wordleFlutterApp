@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:Wordel/pantallas/pantallas.dart';
-import 'package:Wordel/componentes/componentes.dart';
+import 'package:com.jc.wordel/pantallas/pantallas.dart';
+import 'package:com.jc.wordel/componentes/componentes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import '../generated/l10n.dart';
@@ -52,6 +52,8 @@ class _PantallaPrincipalState extends State<PantallaPrincipal> {
         WordleTema.setTema(false);
       }
     });
+
+
   }
 
   @override

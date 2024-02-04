@@ -6,3 +6,7 @@ export 'wordle_tema.dart';
 export 'ventanaFinDeJuego.dart';
 export 'ventanaAjustes.dart';
 export 'ventanaEstadisticas.dart';
+export 'ventanaEntrenamiento.dart';
+export 'ventanaTutorial.dart';
+export 'button3d.dart';
+export 'clicky_button.dart';

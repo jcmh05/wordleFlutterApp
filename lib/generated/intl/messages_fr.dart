@@ -23,9 +23,12 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "ajustes": MessageLookupByLibrary.simpleMessage("Paramètres"),
-        "boton1menu": MessageLookupByLibrary.simpleMessage("MODE 4"),
-        "boton2menu": MessageLookupByLibrary.simpleMessage("CLASSIQUE"),
-        "boton3menu": MessageLookupByLibrary.simpleMessage("MODE 6"),
+        "avisoEstadisticas": MessageLookupByLibrary.simpleMessage(
+            "Seules les statistiques des parties jouées dans le mot du jour sont enregistrées"),
+        "bandera": MessageLookupByLibrary.simpleMessage("🇫🇷"),
+        "boton1menu": MessageLookupByLibrary.simpleMessage("MOT DU JOUR"),
+        "boton2menu": MessageLookupByLibrary.simpleMessage("ENTRAÎNEMENT"),
+        "boton3menu": MessageLookupByLibrary.simpleMessage("DIDACTICIEL"),
         "botonFormateo":
             MessageLookupByLibrary.simpleMessage("Formater les statistiques"),
         "cancion":
@@ -40,6 +43,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "ganadas": MessageLookupByLibrary.simpleMessage("🏆 PARTIES\nGAGNÉES"),
         "mejorRacha":
             MessageLookupByLibrary.simpleMessage("⚡ MEILLEURE\nSÉRIE"),
+        "modo4": MessageLookupByLibrary.simpleMessage("MODE 4"),
+        "modo5": MessageLookupByLibrary.simpleMessage("CLASSIQUE"),
+        "modo6": MessageLookupByLibrary.simpleMessage("MODE 6"),
         "musica": MessageLookupByLibrary.simpleMessage("🎵 Musique"),
         "palabraInexistente": MessageLookupByLibrary.simpleMessage(
             "n\'est pas dans notre dictionnaire"),
@@ -54,8 +60,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "sonidosTeclado":
             MessageLookupByLibrary.simpleMessage("⌨ Sons de clavier"),
         "textoDerrota": MessageLookupByLibrary.simpleMessage("Le mot était: "),
+        "textoEntrenamiento": MessageLookupByLibrary.simpleMessage(
+            "Entraînez-vous sans limites !"),
         "textoVictoria": MessageLookupByLibrary.simpleMessage(
             "Félicitations!\n \nPartagez le résultat avec tous vos amis"),
+        "textoVictoriaEntrenamiento": MessageLookupByLibrary.simpleMessage(
+            "Félicitations !\n\nRejouez autant que vous le souhaitez"),
         "tituloDerrota":
             MessageLookupByLibrary.simpleMessage("Tu as perdu! 😢"),
         "tituloEstadisticas":
@@ -63,6 +73,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "tituloTop": MessageLookupByLibrary.simpleMessage("Meilleures Parties"),
         "tituloVictoria":
             MessageLookupByLibrary.simpleMessage("Tu as gagné! 🏆"),
+        "tutorialAmarillo": MessageLookupByLibrary.simpleMessage(
+            "JAUNE signifie que la lettre est présente dans le mot mais est à la position INCORRECTE"),
+        "tutorialGris": MessageLookupByLibrary.simpleMessage(
+            "GRIS signifie que la lettre N\'EST PAS présente dans le mot"),
+        "tutorialTexto": MessageLookupByLibrary.simpleMessage(
+            "Le jeu consiste à deviner le mot caché. Le mot change tous les jours et sera toujours le même pour tout le monde.\n\nChaque tentative doit être un mot valide. Lors de la saisie d\'un mot, chaque lettre est colorée en fonction de sa présence ou non dans le mot, et de sa position correcte ou incorrecte."),
+        "tutorialTitulo": MessageLookupByLibrary.simpleMessage("COMMENT JOUER"),
+        "tutorialVerde": MessageLookupByLibrary.simpleMessage(
+            "VERT signifie que la lettre est dans le mot et est à la position CORRECTE"),
         "volumenMusica":
             MessageLookupByLibrary.simpleMessage("Volume de la musique:"),
         "volverAlMenu": MessageLookupByLibrary.simpleMessage("Retour au menu")

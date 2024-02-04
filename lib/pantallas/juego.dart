@@ -1,9 +1,9 @@
 import 'dart:math';
-
+import 'package:share_plus/share_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:Wordel/componentes/componentes.dart';
-import 'package:Wordel/modelos/modelos.dart';
-import 'package:Wordel/funciones/funciones.dart';
+import 'package:com.jc.wordel/componentes/componentes.dart';
+import 'package:com.jc.wordel/modelos/modelos.dart';
+import 'package:com.jc.wordel/funciones/funciones.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:confetti/confetti.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -25,6 +25,7 @@ class Juego extends StatefulWidget{
 class _JuegoState extends State<Juego> {
   static Soundpool _pool = Soundpool(streamType: StreamType.music);
   bool juegoTerminado = false;
+  DateTime now = DateTime.now();
 
   final Map<String, List<String>> teclados = {
     'es': ['Q','W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'Ñ', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', 'BORRAR'],
@@ -38,12 +39,12 @@ class _JuegoState extends State<Juego> {
 
   // PARÁMETROS JUEGO
   late EstadoJuego estadoJuego;
-  var filaActual;
+  var filaActual = 0;
   var palabra;
   var teclado;
 
   // Lista de los colores de cada tecla del teclado
-  var listaEstados;
+  List<int> listaEstados = List<int>.empty();
 
   ConfettiController _controller = ConfettiController();
 
@@ -53,18 +54,92 @@ class _JuegoState extends State<Juego> {
   // Lista de las letras que ya se han comprobado
   List<String> letrasComprobadas = [];
 
-
-
   @override
   void initState(){
+    super.initState();
     teclado = teclados[widget.idioma];
     listaEstados = List<int>.filled(teclado.length, 0);
-    filaActual = 0;
-    palabra = " ";
-    estadoJuego = EstadoJuego(wordLength: widget.modoDeJuego, idioma: widget.idioma);
-    estadoJuego.init().then((_) {
-      palabra = estadoJuego.palabra;
+    estadoJuego = EstadoJuego(wordLength: widget.modoDeJuego, idioma: widget.idioma, entrenamiento: false);
+    loadPreferences();
+  }
+
+  void loadPreferences() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    // Comprobamos si es un día nuevo
+    String diaActual = now.day.toString() + now.month.toString() + now.year.toString();
+    String diaGuardado = prefs.getString("diaGuardado_" + widget.idioma) ?? "0";
+
+
+    if( diaActual != diaGuardado){
+      // Reseteamos la palabra del día
+      prefs.setStringList("letrasComprobadas_" + widget.idioma, []);
+      prefs.setInt("filaActual_" + widget.idioma, 0);
+      prefs.setString("palabra_" + widget.idioma, " ");
+      prefs.remove("listaEstados_" + widget.idioma);
+      prefs.setBool("juegoTerminado_" + widget.idioma, false);
+    }
+
+    // Comprobamos si el juego ya estaba empezado o no
+    palabra = prefs.getString("palabra_" + widget.idioma) ?? " ";
+    if ( palabra == " "){
+
+      // Si el juego no está empezado buscamos nueva palabra y guardamos el día
+      estadoJuego.init().then((_) {
+        palabra = estadoJuego.palabra;
+      });
+      prefs.setString("diaGuardado_" + widget.idioma, now.day.toString() + now.month.toString() + now.year.toString());
+
+    }else{
+
+      // Si el juego está empezado tan solo inicializamos el diccionario
+      estadoJuego.init();
+
+    }
+
+    // Recuperamos la lista de estados
+    List<String> listaString = (prefs.getStringList('listaEstados_' + widget.idioma) ?? List<String>.filled(teclado.length, "0") );
+
+    setState(() {
+      letrasComprobadas = prefs.getStringList("letrasComprobadas_" + widget.idioma) ?? [];
+      filaActual = prefs.getInt("filaActual_" + widget.idioma) ?? 0;
+      juegoTerminado = prefs.getBool("juegoTerminado_" + widget.idioma) ?? false;
+      listaEstados = listaString.map((i) => int.parse(i)).toList();
     });
+
+  }
+
+  void compartirTexto( String texto ) {
+    Share.share(texto);
+  }
+
+  String textoAlCompartir( ){
+    int n_intentos = letrasComprobadas.length ~/ palabra.length;
+    int n_maximos = palabra.length == 4 ? 5 : palabra.length==5 ? 6 : 7;
+    String texto = "WORDEL " + S.current.bandera +" - " + n_intentos.toString() + "/" + n_maximos.toString();
+
+    List<String> emojis = ['😀', '😁', '😂', '🤠', '😄', '🤑', '😆', '😴', '🐄', '😉', '😊', '🤯', '😌', '🥴', '😎'];
+    Random random = Random();
+    String emojiAleatorio = emojis[random.nextInt(emojis.length)];
+    texto += n_intentos==n_maximos ? "😅\n\n" : n_intentos<=2 ? "🥱🥱🥱\n\n" : emojiAleatorio + "\n\n";
+
+    for( int i=0; i<letrasComprobadas.length; i++){
+      if ( i%palabra.length == 0 && i>0){
+        texto += "\n";
+      }
+
+      int indice = (i % palabra.length).toInt();
+      String palabraIntroducida = "";
+      for(int j=0; j<palabra.length; j++){
+        palabraIntroducida += letrasComprobadas[(i-indice)+j].toLowerCase();
+      }
+
+      int numero = devolverColor(palabra, palabraIntroducida, indice);
+      String color = numero==1 ? "⬜" : numero==2 ? "🟨" : "🟩";
+      texto += color + " ";
+    }
+
+    return texto;
   }
 
   // Muestra un toast informativo por pantalla
@@ -90,7 +165,7 @@ class _JuegoState extends State<Juego> {
     if (indiceMenorPuntaje >= 0) {
       // Agrega la puntuación y el nombre en la posición correspondiente en la lista
       mejoresPuntajes.insert(indiceMenorPuntaje, puntuacion);
-      mejoresNombres.insert(indiceMenorPuntaje, palabra);
+      mejoresNombres.insert(indiceMenorPuntaje, now.day.toString() + "/" + now.month.toString() + "/" + now.year.toString() +": " + palabra);
       // Elimina el último elemento de la lista
       mejoresPuntajes.removeLast();
       mejoresNombres.removeLast();
@@ -191,6 +266,16 @@ class _JuegoState extends State<Juego> {
     }
   }
 
+  // Guarda la comprobación en la memoria del dispositivo
+  void _actualizarMemoria() async{
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setStringList("letrasComprobadas_" + widget.idioma, letrasComprobadas);
+    prefs.setInt("filaActual_" + widget.idioma, filaActual);
+    prefs.setString("palabra_" + widget.idioma, palabra);
+    prefs.setBool("juegoTerminado_" + widget.idioma, juegoTerminado);
+    prefs.setStringList("listaEstados_" + widget.idioma, listaEstados.map((i) => i.toString()).toList());
+  }
+
   // Función llamada cada vez que se envía una palabra
   void letraEnviada(String palabraIntroducida){
     // Si la palabra está en el diccionario
@@ -208,11 +293,12 @@ class _JuegoState extends State<Juego> {
         actualizaMejoresPartidas( 100 - ((n_intentos/n_maximos)*100) );
         juegoTerminado = true;
         letrasFilaActual = List.filled(palabra.length, " ");
-        showDialog(context: context, builder:(context){return VentanaFinDeJuego(victoria: true, palabra: palabra, resultado: letrasComprobadas);});
+        showDialog(context: context, builder:(context){return VentanaFinDeJuego(victoria: true,entrenamiento: false,palabra: palabra, resultado: letrasComprobadas);});
       }else if( filaActual == (widget.modoDeJuego+1) ){
         // Si se nos acaban los intentos
         actualizaEstadisticas(false);
-        showDialog(context: context, builder:(context){return VentanaFinDeJuego(victoria: false, palabra: palabra, resultado: letrasComprobadas);});
+        juegoTerminado = true;
+        showDialog(context: context, builder:(context){return VentanaFinDeJuego(victoria: false,entrenamiento: false,palabra: palabra, resultado: letrasComprobadas);});
       }
     });
   }
@@ -236,10 +322,6 @@ class _JuegoState extends State<Juego> {
       }
       setState(() { });
 
-      // DESVELAR PALABRA SI SE ESCRIBE "DIME"
-      if (letrasFilaActual.length == 4 && letrasFilaActual.join('') == 'DIME') {
-        mostrarMensaje(palabra);
-      }
 
     };
 
@@ -276,47 +358,39 @@ class _JuegoState extends State<Juego> {
           )
         ),
 
-        //Botón de enviar
-        ElevatedButton(
-          style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                  (Set<MaterialState> states) {
-                if (states.contains(MaterialState.pressed))
-                  return Colors.green.shade800; // Color cuando el botón está presionado
-                return Colors.green; // Color por defecto
-              },
+        //Botón enviar
+        Transform.scale(
+          scale: juegoTerminado ? 0.7 : 0.6,
+          child: ClickyButton(
+            child: Text(
+              juegoTerminado ? S.current.compartir.toUpperCase() : S.current.enviar,
+              style: TextStyle(
+                color: Colors.grey.shade800,
+                fontSize: juegoTerminado ? 25 : 40,
+              ),
             ),
-            shape: MaterialStateProperty.all<OutlinedBorder?>(
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
-            ),
-            side: MaterialStateProperty.all<BorderSide>(
-              BorderSide(color: Colors.black, width: 1.0),
-            ),
-          ),
-          onPressed: () {
-            sonidoInterfaz('sonidoEnviar.mp3');
-            if (!juegoTerminado){
-              // Acción de enviar
-              if( letrasFilaActual.length < widget.modoDeJuego){
-                // Si la palabra no está completa
-                mostrarMensaje(S.current.palabraInsuficiente);
-              }else{
-                // Si la palabra está completa
-                String concatenacion = letrasFilaActual.reduce((value, element) => value + element).toLowerCase();
-                if ( estadoJuego.estaEnDiccionario(concatenacion) ){
-                  letraEnviada(concatenacion);
+            color: Colors.green,
+            onPressed: () {
+              sonidoInterfaz('sonidoEnviar.mp3');
+              if (!juegoTerminado){
+                // Acción de enviar
+                if( letrasFilaActual.length < widget.modoDeJuego){
+                  // Si la palabra no está completa
+                  mostrarMensaje(S.current.palabraInsuficiente);
                 }else{
-                  mostrarMensaje( concatenacion + S.current.palabraInexistente);
+                  // Si la palabra está completa
+                  String concatenacion = letrasFilaActual.reduce((value, element) => value + element).toLowerCase();
+                  if ( estadoJuego.estaEnDiccionario(concatenacion) ){
+                    letraEnviada(concatenacion);
+                    _actualizarMemoria();
+                  }else{
+                    mostrarMensaje( concatenacion + S.current.palabraInexistente);
+                  }
                 }
+              }else{
+                compartirTexto(textoAlCompartir());
               }
-            }
-          },
-          child: Text(
-            S.current.enviar,
-            style: TextStyle(
-              color: Colors.grey.shade800,
-              fontSize: 25,
-            ),
+            },
           ),
         ),
 

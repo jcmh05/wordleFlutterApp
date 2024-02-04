@@ -1,7 +1,7 @@
 {
-  "boton1menu": "MODO 4",
-  "boton2menu": "CLÁSICO",
-  "boton3menu": "MODO 6",
+  "boton1menu": "PALABRA DEL DÍA",
+  "boton2menu": "ENTRENAMIENTO",
+  "boton3menu": "TUTORIAL",
   "tituloEstadisticas": "Estadísticas de juego",
   "partidas": "🕹 PARTIDAS\nJUGADAS",
   "ganadas": "🏆 PARTIDAS\nGANADAS",
@@ -21,6 +21,8 @@
   "tituloDerrota" : "¡Perdiste! 😢",
   "textoDerrota": "La palabra era: ",
   "textoVictoria": "¡Enhorabuena!\n \nComparte el resultado con todos tus amigos",
+  "textoVictoriaEntrenamiento": "¡Enhorabuena!\n \nVuelve a jugar tanto como quieras",
+  "avisoEstadisticas": "Solo se almacenan los datos de las partidas jugadas en la palabra del día",
   "volverAlMenu": "Volver al menú",
   "ajustes": "Ajustes",
   "sonidosInterfaz": "📱 Sonidos de interfaz",
@@ -28,5 +30,15 @@
   "musica": "🎵 Música",
   "volumenMusica": "Volumen Música:",
   "cancion" : "Canción seleccionada:",
-  "cancionHint" : "Selecciona una canción"
+  "cancionHint" : "Selecciona una canción",
+  "modo4" : "MODO 4",
+  "modo5" : "CLÁSICO",
+  "modo6" : "MODO 6",
+  "textoEntrenamiento": "¡Practica ilimitadamente!",
+  "tutorialTitulo":  "COMO JUGAR",
+  "tutorialTexto": "El juego consiste en adivinar la palabra oculta. La palabra cambia cada día y siempre será la misma para todas las personas\n\nCada intento debe ser una palabra válida. Al introducir una palabra cada letra se pinta de un color en función de si se encuentra o no en la palabra y si se encuentra en la posición correcta",
+  "tutorialVerde": "VERDE significa que la letra se encuentra en la palabra y está en la posición CORRECTA",
+  "tutorialAmarillo": "AMARILLO significa que la letra está presente en la palabra pero está en la posición INCORRECTA",
+  "tutorialGris": "GRIS significa que la letra NO está presente en la palabra",
+  "bandera": "\uD83C\uDDEA\uD83C\uDDF8"
 }

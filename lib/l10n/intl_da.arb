@@ -1,7 +1,7 @@
 {
-  "boton1menu": "MODUS 4",
-  "boton2menu": "KLASSISCH",
-  "boton3menu": "MODUS 6",
+  "boton1menu": "WORT DES TAGES",
+  "boton2menu": "AUSBILDUNG",
+  "boton3menu": "LERNPROGRAMM",
   "tituloEstadisticas": "Spielstatistiken",
   "partidas": "🕹 GESPIELTE\nSPIELE",
   "ganadas": "🏆 GEWONNENE\nSPIELE",
@@ -21,6 +21,8 @@
   "tituloDerrota" : "Verloren! 😢",
   "textoDerrota": "Das Wort war: ",
   "textoVictoria": "Herzlichen Glückwunsch!\n \nTeile das Ergebnis mit all deinen Freunden",
+  "textoVictoriaEntrenamiento": "Herzlichen Glückwunsch!\n\nSpiele so oft du möchtest erneut",
+  "avisoEstadisticas": "Es werden nur Statistiken für die gespielten Runden im Wort des Tages gespeichert",
   "volverAlMenu": "Zurück zum Menü",
   "ajustes" : "Einstellungen",
   "sonidosInterfaz": "📱 Benutzeroberflächenklänge",
@@ -28,5 +30,15 @@
   "musica": "🎵 Musik",
   "volumenMusica": "Musiklautstärke:",
   "cancion" : "Ausgewähltes Lied:",
-  "cancionHint" : "Wähle ein Lied aus"
+  "cancionHint" : "Wähle ein Lied aus",
+  "modo4": "MODUS 4",
+  "modo5": "KLASSISCH",
+  "modo6": "MODUS 6",
+  "textoEntrenamiento": "Übe unbegrenzt!",
+  "tutorialTitulo": "WIE MAN SPIELT",
+  "tutorialTexto": "Das Spiel besteht darin, das versteckte Wort zu erraten. Das Wort ändert sich jeden Tag und wird für alle Personen dasselbe sein.\n\nJeder Versuch muss ein gültiges Wort sein. Beim Eingeben eines Wortes wird jeder Buchstabe je nachdem, ob er im Wort enthalten ist oder nicht und ob er sich an der richtigen Stelle befindet, eingefärbt.",
+  "tutorialVerde": "GRÜN bedeutet, dass der Buchstabe im Wort enthalten ist und sich an der RICHTIGEN Position befindet",
+  "tutorialAmarillo": "GELB bedeutet, dass der Buchstabe im Wort enthalten ist, aber sich an der FALSCHEN Position befindet",
+  "tutorialGris": "GRAU bedeutet, dass der Buchstabe im Wort NICHT enthalten ist",
+  "bandera": "\uD83C\uDDE9\uD83C\uDDEA"
 }

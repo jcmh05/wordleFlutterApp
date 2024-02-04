@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:Wordel/pantallas/pantallas.dart';
+import 'package:com.jc.wordel/pantallas/pantallas.dart';
+import 'package:flutter/services.dart';
+
 
 void main() {
-  runApp(const PantallaPrincipal());
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+      .then((_) {
+    runApp(const PantallaPrincipal());
+  });
 }

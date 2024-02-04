@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+  import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/services.dart';
 import 'package:soundpool/soundpool.dart';
@@ -97,7 +97,7 @@ class WordleTema {
   static ThemeData claro() {
     return ThemeData(
       dividerColor: Colors.grey, //Color para borde de las casillas_letra
-      accentColor: Colors.black,
+      indicatorColor: Colors.black,
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all<Color>(Colors.white60)
@@ -116,7 +116,7 @@ class WordleTema {
   static ThemeData oscuro() {
     return ThemeData(
       dividerColor: Colors.white, //Color para borde de las casillas_letra
-      accentColor: Colors.white38,
+      indicatorColor: Colors.white38,
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all<Color>(Colors.white)

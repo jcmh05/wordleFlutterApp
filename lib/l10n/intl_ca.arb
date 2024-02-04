@@ -1,7 +1,7 @@
 {
-  "boton1menu": "MODE 4",
-  "boton2menu": "CLÀSSIC",
-  "boton3menu": "MODE 6",
+  "boton1menu": "PARAULA DEL DIA",
+  "boton2menu": "ENTRENAMENT",
+  "boton3menu": "TUTORIAL",
   "tituloEstadisticas": "Estadístiques de joc",
   "partidas": "🕹 PARTIDES\nJUGADES",
   "ganadas": "🏆 PARTIDES\nGUANYADES",
@@ -18,6 +18,8 @@
   "palabraInexistente": " no està en el nostre diccionari",
   "palabraInsuficiente": "No hi ha suficients lletres",
   "tituloVictoria": "Has guanyat! 🏆",
+  "textoVictoriaEntrenamiento": "Felicitats!\n\nTorna a jugar tantes vegades com vulguis",
+  "avisoEstadisticas": "Només s'emmagatzemen les estadístiques de les partides jugades en la paraula del dia",
   "tituloDerrota" : "Has perdut! 😢",
   "textoDerrota": "La paraula era: ",
   "textoVictoria": "Felicitats!\n \nComparteix el resultat amb tots els teus amics",
@@ -28,5 +30,15 @@
   "musica": "🎵 Música",
   "volumenMusica": "Volum de música:",
   "cancion" : "Cançó seleccionada:",
-  "cancionHint" : "Selecciona una cançó"
+  "cancionHint" : "Selecciona una cançó",
+  "modo4": "MODE 4",
+  "modo5": "CLÀSSIC",
+  "modo6": "MODE 6",
+  "textoEntrenamiento": "¡Practica sense límits!",
+  "tutorialTitulo": "COM JUGAR",
+  "tutorialTexto": "El joc consisteix a endevinar la paraula amagada. La paraula canvia cada dia i sempre serà la mateixa per a totes les persones.\n\nCada intent ha de ser una paraula vàlida. En introduir una paraula, cada lletra es pinta d'un color en funció de si es troba o no en la paraula i si es troba en la posició correcta",
+  "tutorialVerde": "VERD significa que la lletra es troba a la paraula i està a la posició CORRECTA",
+  "tutorialAmarillo": "GROC significa que la lletra és present a la paraula però està a la posició INCORRECTA",
+  "tutorialGris": "GRIS significa que la lletra NO és present a la paraula",
+  "bandera": "CAT"
 }

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:Wordel/pantallas/pantallas.dart';
-import 'package:Wordel/componentes/componentes.dart';
+import 'package:com.jc.wordel/pantallas/pantallas.dart';
+import 'package:com.jc.wordel/componentes/componentes.dart';
 
 class PantallaJuego extends StatefulWidget {
   final int modoDeJuego;
   final String idioma;
-  const PantallaJuego({Key? key, required this.modoDeJuego, required this.idioma}) : super(key: key);
+  final bool entrenamiento;
+  const PantallaJuego({Key? key, required this.modoDeJuego, required this.idioma, required this.entrenamiento}) : super(key: key);
 
   @override
   _WordleAppPrincipalState createState() => _WordleAppPrincipalState();
@@ -60,7 +61,9 @@ class _WordleAppPrincipalState extends State<PantallaJuego> {
           ],
         ),
 
-        body: Juego(modoDeJuego: widget.modoDeJuego, idioma: widget.idioma,),
+        body: widget.entrenamiento
+            ? JuegoEntrenamiento(modoDeJuego: widget.modoDeJuego, idioma: widget.idioma,)
+            : Juego(modoDeJuego: widget.modoDeJuego, idioma: widget.idioma,),
       ),
     );
   }

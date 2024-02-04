@@ -1,7 +1,7 @@
 {
-  "boton1menu": "MODE 4",
-  "boton2menu": "CLASSIQUE",
-  "boton3menu": "MODE 6",
+  "boton1menu": "MOT DU JOUR",
+  "boton2menu": "ENTRAÎNEMENT",
+  "boton3menu": "DIDACTICIEL",
   "tituloEstadisticas": "Statistiques de jeu",
   "partidas": "🕹 PARTIES\nJOUÉES",
   "ganadas": "🏆 PARTIES\nGAGNÉES",
@@ -21,6 +21,8 @@
   "tituloDerrota" : "Tu as perdu! 😢",
   "textoDerrota": "Le mot était: ",
   "textoVictoria": "Félicitations!\n \nPartagez le résultat avec tous vos amis",
+  "textoVictoriaEntrenamiento": "Félicitations !\n\nRejouez autant que vous le souhaitez",
+  "avisoEstadisticas": "Seules les statistiques des parties jouées dans le mot du jour sont enregistrées",
   "volverAlMenu": "Retour au menu",
   "ajustes" : "Paramètres",
   "sonidosInterfaz": "📱 Sons d'interface",
@@ -28,5 +30,15 @@
   "musica": "🎵 Musique",
   "volumenMusica": "Volume de la musique:",
   "cancion" : "Chanson sélectionnée:",
-  "cancionHint" : "Sélectionnez une chanson"
+  "cancionHint" : "Sélectionnez une chanson",
+  "modo4": "MODE 4",
+  "modo5": "CLASSIQUE",
+  "modo6": "MODE 6",
+  "textoEntrenamiento": "Entraînez-vous sans limites !",
+  "tutorialTitulo": "COMMENT JOUER",
+  "tutorialTexto": "Le jeu consiste à deviner le mot caché. Le mot change tous les jours et sera toujours le même pour tout le monde.\n\nChaque tentative doit être un mot valide. Lors de la saisie d'un mot, chaque lettre est colorée en fonction de sa présence ou non dans le mot, et de sa position correcte ou incorrecte.",
+  "tutorialVerde": "VERT signifie que la lettre est dans le mot et est à la position CORRECTE",
+  "tutorialAmarillo": "JAUNE signifie que la lettre est présente dans le mot mais est à la position INCORRECTE",
+  "tutorialGris": "GRIS signifie que la lettre N'EST PAS présente dans le mot",
+  "bandera": "\uD83C\uDDEB\uD83C\uDDF7"
 }

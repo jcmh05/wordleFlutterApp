@@ -31,6 +31,8 @@ class VentanaEstadisticas extends StatelessWidget {
       prefs.setDouble('top${i}Valor', 0.0);
       prefs.setString('top${i}Nombre', ' ');
     }
+
+    // Memoria estadísticas
     prefs.setInt('porcentaje', 0 );
     prefs.setInt('partidas',0);
     prefs.setInt('ganadas',0);
@@ -221,6 +223,10 @@ class VentanaEstadisticas extends StatelessWidget {
               nombrePalabra("8"),
               barraProgreso("9"),
               nombrePalabra("9"),
+
+              SizedBox(height: 16.0), // Espacio entre filas
+
+              Text( "(" + S.current.avisoEstadisticas + ")", textAlign: TextAlign.center,),
 
               SizedBox(height: 16.0), // Espacio entre filas
 

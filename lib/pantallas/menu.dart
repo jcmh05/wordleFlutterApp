@@ -1,7 +1,6 @@
-import 'package:Wordel/componentes/AudioPlayerController.dart';
+import 'package:com.jc.wordel/componentes/AudioPlayerController.dart';
 import 'package:flutter/material.dart';
-import 'package:Wordel/componentes/componentes.dart';
-import 'package:Wordel/componentes/ventanaEstadisticas.dart';
+import 'package:com.jc.wordel/componentes/componentes.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../generated/l10n.dart';
@@ -29,18 +28,15 @@ class _MenuState extends State<Menu> {
   final margenVertical = 30.0;
   final margenHorizontal = 35.0;
   final alturaBoton = 85.0;
-  Color primerColorBoton = Color(0xFF6baa65);
-  Color segundoColorBoton = Color(0xFFc9b457);
-  Color tercerColorBoton = Colors.grey;
 
 
   String teclasPulsadas = " ";
 
   // Función que se llamará al pulsar cada botón del menú
-  void cambiarHaciaJuego(int modoDeJuego) async {
+  void cambiarHaciaJuego(int modoDeJuego, bool entrenamiento_) async {
     bool actualizar = await Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => PantallaJuego(modoDeJuego: modoDeJuego, idioma: widget.idioma)),
+      MaterialPageRoute(builder: (context) => PantallaJuego(modoDeJuego: modoDeJuego, idioma: widget.idioma,entrenamiento: entrenamiento_)),
     );
 
     if (actualizar){
@@ -48,14 +44,9 @@ class _MenuState extends State<Menu> {
     }
   }
 
-  // Parámetros y funciones para cambiar la escala de los botones al pulsarlos
-  var _tecla1presionada;
-  var _tecla2presionada;
-  var _tecla3presionada;
-
   void reproducir() async{
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool musicaActivada = prefs.getBool("musica") ?? true;
+    bool musicaActivada = prefs.getBool("musica") ?? false;
 
     if( musicaActivada){
       double volumen = prefs.getDouble("volumenMusica") ?? 0.15;
@@ -71,9 +62,6 @@ class _MenuState extends State<Menu> {
     super.initState();
     reproducir();
     audioPlayerController = AudioPlayerController(audioPlayer: player);
-    _tecla1presionada = false;
-    _tecla2presionada = false;
-    _tecla3presionada = false;
   }
 
   @override
@@ -81,13 +69,6 @@ class _MenuState extends State<Menu> {
     audioPlayerController.dispose();
     super.dispose();
   }
-
-  void _tecla1Pulsada(PointerUpEvent){ setState(() { _tecla1presionada = true; }); }
-  void _tecla1Soltada(PointerDownEvent){ setState(() { _tecla1presionada = false; }); }
-  void _tecla2Pulsada(PointerUpEvent){ setState(() { _tecla2presionada = true; }); }
-  void _tecla2Soltada(PointerDownEvent){ setState(() { _tecla2presionada = false; }); }
-  void _tecla3Pulsada(PointerUpEvent){ setState(() { _tecla3presionada = true; }); }
-  void _tecla3Soltada(PointerDownEvent){ setState(() { _tecla3presionada = false; }); }
 
   static void sonidoInterfaz(String nombre) async{
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -122,99 +103,87 @@ class _MenuState extends State<Menu> {
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // Botón "Modo 4"
+            // Botón "Jugar"
             Padding(
               padding: EdgeInsets.symmetric(horizontal: margenHorizontal,vertical: margenVertical),
-              child: Listener(
-                onPointerDown: _tecla1Pulsada,
-                onPointerUp: _tecla1Soltada,
-                child: Transform.scale(
-                  scale: _tecla1presionada ? 0.95 : 1.0,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      sonidoInterfaz('start');
-                      cambiarHaciaJuego(4);
-                    },
-                    child: Text(
-                        S.current.boton1menu,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold, // Fuente botón
-                          fontSize: 26.0, // Tamaño fuente
-                          color: Colors.white,
-                          fontFamily: 'Arial', // Fuente
-                        )
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      primary: primerColorBoton, // Color de fondo del botón
-                      onPrimary: tercerColorBoton,
-                      minimumSize: Size(double.infinity, alturaBoton),
-                    ),
+              child: Button3d(
+                  style: Button3dStyle(
+                    topColor: Color(0xFF6baa65),
+                    backColor: Color(0xFF276507),
                   ),
-                ),
-              )
-            ),
-
-            // Botón "Clásico"
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: margenHorizontal, vertical: margenVertical),
-              child: Listener(
-                onPointerDown: _tecla2Pulsada,
-                onPointerUp: _tecla2Soltada,
-                child: Transform.scale(
-                  scale: _tecla2presionada ? 0.95 : 1.0,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      sonidoInterfaz('start');
-                      cambiarHaciaJuego(5);
-                    },
-                    child: Text(
-                        S.current.boton2menu,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold, // Fuente botón
-                          fontSize: 26.0, // Tamaño fuente
-                          color: Colors.white,
-                          fontFamily: 'Arial', // Fuente
-                        )
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      primary: segundoColorBoton, // Color de fondo del botón
-                      onPrimary: tercerColorBoton,
-                      minimumSize: Size(double.infinity, alturaBoton),
-                    ),
+                  onPressed: () {
+                    sonidoInterfaz('start');
+                    cambiarHaciaJuego(5, false);
+                  },
+                  child: Text(
+                      S.current.boton1menu,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold, // Fuente botón
+                        fontSize: 26.0, // Tamaño fuente
+                        color: Colors.white,
+                        fontFamily: 'Arial', // Fuente
+                      )
                   ),
-                ),
+                  width: MediaQuery.of(context).size.width
               ),
             ),
 
-            // Botón "Modo 6"
+            // Botón "Entrenamiento"
             Padding(
               padding: EdgeInsets.symmetric(horizontal: margenHorizontal, vertical: margenVertical),
-              child: Listener(
-                onPointerDown: _tecla3Pulsada,
-                onPointerUp: _tecla3Soltada,
-                child: Transform.scale(
-                  scale: _tecla3presionada ? 0.95 : 1.0,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      sonidoInterfaz('start');
-                      cambiarHaciaJuego(6);
-                    },
-                    child: Text(
-                        S.current.boton3menu,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold, // Fuente botón
-                          fontSize: 26.0, // Tamaño fuente
-                          color: Colors.white,
-                          fontFamily: 'Arial', // Fuente
-                        )
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      primary: tercerColorBoton, // Color de fondo del botón
-                      onPrimary: primerColorBoton,
-                      minimumSize: Size(double.infinity, alturaBoton),
-                    ),
+              child: Button3d(
+                  style: Button3dStyle(
+                    topColor: Color(0xFFc9b457),
+                    backColor: Color(0xFF8F8D00),
                   ),
-                ),
+                  onPressed: () {
+                    sonidoInterfaz('click_on');
+                    showDialog(context: context, builder:(context){return VentanaEntrenamiento();}).then((result) {
+                      if( result != null ){
+                        cambiarHaciaJuego(result, true);
+                        sonidoInterfaz('start');
+                      }else{
+                        sonidoInterfaz('click_off');
+                      }
+                    });
+                  },
+                  child: Text(
+                      S.current.boton2menu,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold, // Fuente botón
+                        fontSize: 26.0, // Tamaño fuente
+                        color: Colors.white,
+                        fontFamily: 'Arial', // Fuente
+                      )
+                  ),
+                  width: MediaQuery.of(context).size.width
+              ),
+            ),
+
+            // Botón "Tutorial"
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: margenHorizontal, vertical: margenVertical),
+              child: Button3d(
+                  style: Button3dStyle(
+                    topColor: Colors.grey,
+                    backColor: Color(0xFF2C2C2C),
+                  ),
+                  onPressed: () {
+                    sonidoInterfaz('click_on');
+                    showDialog(context: context, builder:(context){return VentanaTutorial(idioma: widget.idioma,);}).then((result) {
+                      sonidoInterfaz('click_off');
+                    });
+                  },
+                  child: Text(
+                      S.current.boton3menu,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold, // Fuente botón
+                        fontSize: 26.0, // Tamaño fuente
+                        color: Colors.white,
+                        fontFamily: 'Arial', // Fuente
+                      )
+                  ),
+                  width: MediaQuery.of(context).size.width
               ),
             ),
           ],
@@ -232,7 +201,7 @@ class _MenuState extends State<Menu> {
               // Botón estadísticas
               IconButton(
                 iconSize: 35.0,
-                splashColor: primerColorBoton,
+                splashColor: Color(0xFF6baa65),
                 icon: Icon(Icons.bar_chart_sharp),
                 onPressed: () {
                   sonidoInterfaz('click_on');
@@ -245,7 +214,7 @@ class _MenuState extends State<Menu> {
               // Botón Ajustes
               IconButton(
                 iconSize: 35.0,
-                splashColor: primerColorBoton,
+                splashColor: Color(0xFF6baa65),
                 icon: Icon(Icons.settings),
                 onPressed: () {
                   sonidoInterfaz('click_on');

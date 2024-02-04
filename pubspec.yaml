@@ -1,4 +1,4 @@
-name: Wordel
+name: com.jc.wordel
 description: Un juego de palabras
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -68,7 +68,6 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/logo.png
     - assets/logo2.png
     - assets/dictionary_es.json
     - assets/dictionary_en.json
@@ -77,6 +76,10 @@ flutter:
     - assets/dictionary_ca.json
     - assets/dictionary_da.json
     - assets/dictionary_zh.json
+    - assets/dic4_es.json
+    - assets/dic5_es.json
+    - assets/dic6_es.json
+    - assets/dic5_en.json
     - assets/bandera_es.png
     - assets/bandera_en.png
     - assets/bandera_fr.png
@@ -95,7 +98,8 @@ flutter:
     - assets/Elevator2.mp3
     - assets/Elevator1.mp3
     - assets/Jazz1.mp3
-    - assets/Tarzan.mp3
+    - assets/Jazz2.mp3
+    - assets/Elegant.mp3
     - assets/sounds_key01.wav
     - assets/sounds_key02.wav
     - assets/sounds_key03.wav
@@ -103,6 +107,8 @@ flutter:
     - assets/sounds_key05.wav
     - assets/sounds_key06.wav
     - assets/sounds_space.wav
+    - assets/bt2_white.jpg
+    - assets/bt2_dark.jpg
 
 flutter_intl:
   enabled: true

@@ -23,9 +23,12 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "ajustes": MessageLookupByLibrary.simpleMessage("設定"),
-        "boton1menu": MessageLookupByLibrary.simpleMessage("模式4"),
-        "boton2menu": MessageLookupByLibrary.simpleMessage("經典"),
-        "boton3menu": MessageLookupByLibrary.simpleMessage("模式6"),
+        "avisoEstadisticas":
+            MessageLookupByLibrary.simpleMessage("僅儲存在每日單詞中玩的遊戲統計數據"),
+        "bandera": MessageLookupByLibrary.simpleMessage("🇨🇳"),
+        "boton1menu": MessageLookupByLibrary.simpleMessage("今日之詞"),
+        "boton2menu": MessageLookupByLibrary.simpleMessage("訓練"),
+        "boton3menu": MessageLookupByLibrary.simpleMessage("教程"),
         "botonFormateo": MessageLookupByLibrary.simpleMessage("格式化統計數據"),
         "cancion": MessageLookupByLibrary.simpleMessage("已選歌曲："),
         "cancionHint": MessageLookupByLibrary.simpleMessage("選擇一首歌曲"),
@@ -35,6 +38,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "enviar": MessageLookupByLibrary.simpleMessage("發送"),
         "ganadas": MessageLookupByLibrary.simpleMessage("🏆 獲勝局數"),
         "mejorRacha": MessageLookupByLibrary.simpleMessage("⚡ 最佳連勝"),
+        "modo4": MessageLookupByLibrary.simpleMessage("模式4"),
+        "modo5": MessageLookupByLibrary.simpleMessage("经典"),
+        "modo6": MessageLookupByLibrary.simpleMessage("模式6"),
         "musica": MessageLookupByLibrary.simpleMessage("🎵 音樂"),
         "palabraInexistente": MessageLookupByLibrary.simpleMessage(" 不在詞典中"),
         "palabraInsuficiente": MessageLookupByLibrary.simpleMessage("字母不足"),
@@ -45,12 +51,23 @@ class MessageLookup extends MessageLookupByLibrary {
         "sonidosInterfaz": MessageLookupByLibrary.simpleMessage("📱 介面音效"),
         "sonidosTeclado": MessageLookupByLibrary.simpleMessage("⌨ 鍵盤音效"),
         "textoDerrota": MessageLookupByLibrary.simpleMessage("該單詞是: "),
+        "textoEntrenamiento": MessageLookupByLibrary.simpleMessage("無限練習！"),
         "textoVictoria":
             MessageLookupByLibrary.simpleMessage("恭喜你!\n \n與您的所有朋友分享結果"),
+        "textoVictoriaEntrenamiento":
+            MessageLookupByLibrary.simpleMessage("恭喜！\n\n隨時再玩"),
         "tituloDerrota": MessageLookupByLibrary.simpleMessage("你輸了! 😢"),
         "tituloEstadisticas": MessageLookupByLibrary.simpleMessage("遊戲統計數據"),
         "tituloTop": MessageLookupByLibrary.simpleMessage("最佳遊戲"),
         "tituloVictoria": MessageLookupByLibrary.simpleMessage("你贏了! 🏆"),
+        "tutorialAmarillo":
+            MessageLookupByLibrary.simpleMessage("黃色表示該字母在單詞中存在，但位於錯誤的位置"),
+        "tutorialGris": MessageLookupByLibrary.simpleMessage("灰色表示該字母不在單詞中"),
+        "tutorialTexto": MessageLookupByLibrary.simpleMessage(
+            "遊戲的目標是猜測隱藏的單詞。每天更換一個單詞，對於每個人來說都是相同的。\n\n每次嘗試都必須是一個有效的單詞。輸入單詞時，根據字母是否存在於單詞中，以及是否位於正確的位置，對每個字母進行著色。"),
+        "tutorialTitulo": MessageLookupByLibrary.simpleMessage("如何遊玩"),
+        "tutorialVerde":
+            MessageLookupByLibrary.simpleMessage("綠色表示該字母在單詞中並且位於正確的位置"),
         "volumenMusica": MessageLookupByLibrary.simpleMessage("音樂音量："),
         "volverAlMenu": MessageLookupByLibrary.simpleMessage("返回菜單")
       };

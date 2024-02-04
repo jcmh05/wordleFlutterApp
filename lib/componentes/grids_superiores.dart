@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:Wordel/componentes/componentes.dart';
-import 'package:Wordel/funciones/funciones.dart';
+import 'package:com.jc.wordel/componentes/componentes.dart';
+import 'package:com.jc.wordel/funciones/funciones.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 

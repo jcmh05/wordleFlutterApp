@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
 import 'dart:math';
-import 'package:Wordel/funciones/funciones.dart';
+import 'package:com.jc.wordel/funciones/funciones.dart';
 
 import '../generated/l10n.dart';
 
 class VentanaFinDeJuego extends StatelessWidget {
   final bool victoria;
+  final bool entrenamiento;
   final String palabra;
   final List<String> resultado;
 
-  const VentanaFinDeJuego({Key? key,required this.victoria, required this.palabra, required this.resultado}) : super(key: key);
+  const VentanaFinDeJuego({Key? key,required this.victoria, required this.entrenamiento ,required this.palabra, required this.resultado}) : super(key: key);
 
   void compartirTexto( String texto ) {
     Share.share(texto);
@@ -19,13 +20,13 @@ class VentanaFinDeJuego extends StatelessWidget {
   String textoAlCompartir( ){
     int n_intentos = resultado.length ~/ palabra.length;
     int n_maximos = palabra.length == 4 ? 5 : palabra.length==5 ? 6 : 7;
-    String texto = "WORDEL - " + n_intentos.toString() + "/" + n_maximos.toString();
+    String texto = "WORDEL " + S.current.bandera +" - " + n_intentos.toString() + "/" + n_maximos.toString();
 
     if( victoria ){
-      List<String> emojis = ['😀', '😁', '😂', '🤠', '😄', '🤑', '😆', '😴', '🐄', '😉', '😊', '🤯', '😌', '🥴', '😎'];
+      List<String> emojis = ['😀', '😁', '😂', '🤠', '😄', '🤑', '😆', '🦆', '🐄', '🧐', '🤐', '🤯', '🤫', '🥶', '🥵','🐢','🎱','🛐','💤','👁','⚠','🍷🎩','‼','🦐','😦','🐇'];
       Random random = Random();
       String emojiAleatorio = emojis[random.nextInt(emojis.length)];
-      texto += n_intentos==n_maximos ? "😅\n\n" : n_intentos<=2 ? "🥱🥱🥱\n\n" : emojiAleatorio + "\n\n";
+      texto += n_intentos==n_maximos ? "😅\n\n" : n_intentos<=2 ? "🥱🥱\n\n" : emojiAleatorio + "\n\n";
     }else{
       texto += "😞\n\n";
     }
@@ -65,21 +66,24 @@ class VentanaFinDeJuego extends StatelessWidget {
         content: SingleChildScrollView(
           child: Center(
             child: Text(
-              (victoria) ? S.current.textoVictoria : S.current.textoDerrota + palabra,
+              (victoria)
+                  ? (entrenamiento ? S.current.textoVictoriaEntrenamiento : S.current.textoVictoria)
+                  : S.current.textoDerrota + palabra,
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: 18, // Tamaño de fuente personalizado
+                fontSize: 18, // Tamaño de fuente
               ),
             ),
           ),
         ),
         actions: [
-          TextButton(
-            onPressed: () {
-              compartirTexto(textoAlCompartir());
-            },
-            child: Text(S.current.compartir),
-          ),
+          if (!entrenamiento) // Verifica si el valor de "entrenamiento" es falso
+            TextButton(
+              onPressed: () {
+                compartirTexto(textoAlCompartir());
+              },
+              child: Text(S.current.compartir),
+            ),
           TextButton(
             onPressed: () {
               Navigator.of(context).pop();
@@ -88,6 +92,7 @@ class VentanaFinDeJuego extends StatelessWidget {
             child: Text(S.current.volverAlMenu),
           ),
         ],
+
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15.0),
         )

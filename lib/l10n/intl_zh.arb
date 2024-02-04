@@ -1,7 +1,7 @@
 {
-  "boton1menu": "模式4",
-  "boton2menu": "經典",
-  "boton3menu": "模式6",
+  "boton1menu": "今日之詞",
+  "boton2menu": "訓練",
+  "boton3menu": "教程",
   "tituloEstadisticas": "遊戲統計數據",
   "partidas": "🕹 遊戲局數",
   "ganadas": "🏆 獲勝局數",
@@ -21,6 +21,8 @@
   "tituloDerrota" : "你輸了! 😢",
   "textoDerrota": "該單詞是: ",
   "textoVictoria": "恭喜你!\n \n與您的所有朋友分享結果",
+  "textoVictoriaEntrenamiento": "恭喜！\n\n隨時再玩",
+  "avisoEstadisticas": "僅儲存在每日單詞中玩的遊戲統計數據",
   "volverAlMenu": "返回菜單",
   "ajustes" : "設定",
   "sonidosInterfaz": "📱 介面音效",
@@ -28,5 +30,15 @@
   "musica": "🎵 音樂",
   "volumenMusica": "音樂音量：",
   "cancion" : "已選歌曲：",
-  "cancionHint" : "選擇一首歌曲"
+  "cancionHint" : "選擇一首歌曲",
+  "modo4": "模式4",
+  "modo5": "经典",
+  "modo6": "模式6",
+  "textoEntrenamiento": "無限練習！",
+  "tutorialTitulo": "如何遊玩",
+  "tutorialTexto": "遊戲的目標是猜測隱藏的單詞。每天更換一個單詞，對於每個人來說都是相同的。\n\n每次嘗試都必須是一個有效的單詞。輸入單詞時，根據字母是否存在於單詞中，以及是否位於正確的位置，對每個字母進行著色。",
+  "tutorialVerde": "綠色表示該字母在單詞中並且位於正確的位置",
+  "tutorialAmarillo": "黃色表示該字母在單詞中存在，但位於錯誤的位置",
+  "tutorialGris": "灰色表示該字母不在單詞中",
+  "bandera": "\uD83C\uDDE8\uD83C\uDDF3"
 }
