@@ -2,7 +2,7 @@
 
 # WORDEL - Flutter App
 
-![Logo](capturas/graficoDeFunciones.png)
+<img src="capturas/graficoDeFunciones.png" width="400" height="200">
 
 WORDEL is a mobile application built with Flutter, inspired by the famous word game "Wordle." Players must guess a random word with limited attempts and through a series of clues.
 
@@ -14,15 +14,15 @@ Download by clicking on the following image:
 ## 📸 Screenshots
 
 <div style="display: flex; justify-content: space-between;">
-    <img src="capturas/image1.png" alt="Screenshot 1" width="250"/>
-    <img src="capturas/image2.png" alt="Screenshot 2" width="250"/>
-    <img src="capturas/image3.png" alt="Screenshot 3" width="250"/>
+    <img src="capturas/image1.png" alt="Screenshot 1" width="200"/>
+    <img src="capturas/image2.png" alt="Screenshot 2" width="200"/>
+    <img src="capturas/image3.png" alt="Screenshot 3" width="200"/>
 </div>
 
 <div style="display: flex; justify-content: space-between; margin-top: 20px;">
-    <img src="capturas/image4.png" alt="Screenshot 4" width="250"/>
-    <img src="capturas/image5.png" alt="Screenshot 5" width="250"/>
-    <img src="capturas/image6.png" alt="Screenshot 6" width="250"/>
+    <img src="capturas/image4.png" alt="Screenshot 4" width="200"/>
+    <img src="capturas/image5.png" alt="Screenshot 5" width="200"/>
+    <img src="capturas/image6.png" alt="Screenshot 6" width="200"/>
 </div>
 
 
@@ -94,7 +94,7 @@ int devolverColor(String palabra, String palabraIntroducida, int posicion) {
 
 # WORDEL - Aplicación en Flutter
 
-![Logo](capturas/graficoDeFunciones.png)
+<img src="capturas/graficoDeFunciones.png" width="400" height="200">
 
 WORDEL es una aplicación móvil realizada en Flutter inspirada en el famoso juego de palabras "Wordle". Los jugadores deben adivinar una palabra al azar con conjeturas limitadas ya través de una serie de pistas.
 
@@ -106,15 +106,15 @@ Descargar haciendo click sobre la siguiente imagen:
 ## 📸 Capturas
 
 <div style="display: flex; justify-content: space-between;">
-    <img src="capturas/image1.png" alt="Captura 1" width="250"/>
-    <img src="capturas/image2.png" alt="Captura 2" width="250"/>
-    <img src="capturas/image3.png" alt="Captura 3" width="250"/>
+    <img src="capturas/image1.png" alt="Captura 1" width="200"/>
+    <img src="capturas/image2.png" alt="Captura 2" width="200"/>
+    <img src="capturas/image3.png" alt="Captura 3" width="200"/>
 </div>
 
 <div style="display: flex; justify-content: space-between; margin-top: 20px;">
-    <img src="capturas/image4.png" alt="Captura 4" width="250"/>
-    <img src="capturas/image5.png" alt="Captura 5" width="250"/>
-    <img src="capturas/image6.png" alt="Captura 6" width="250"/>
+    <img src="capturas/image4.png" alt="Captura 4" width="200"/>
+    <img src="capturas/image5.png" alt="Captura 5" width="200"/>
+    <img src="capturas/image6.png" alt="Captura 6" width="200"/>
 </div>
 
 
