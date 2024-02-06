@@ -8,7 +8,7 @@ WORDEL is a mobile application built with Flutter, inspired by the famous word g
 
 It is a mobile-oriented application where players can engage through a simple and intuitive interface.
 
-**Download** by clicking on the following image:
+**Download APK** by clicking on the following image:
 
 <a href="https://github.com/jcmh05/wordleDSDM/raw/main/wordel.apk">
     <img src="https://github.com/jcmh05/wordleDSDM/raw/main/capturas/download.png" width="200" alt="Descargar APK">
@@ -99,16 +99,18 @@ int devolverColor(String palabra, String palabraIntroducida, int posicion) {
 
 <img src="capturas/graficoDeFunciones.png" width="400" height="200">
 
-WORDEL es una aplicación móvil realizada en Flutter inspirada en el famoso juego de palabras "Wordle". Los jugadores deben adivinar una palabra al azar con conjeturas limitadas ya través de una serie de pistas.
+WORDEL es una aplicación móvil realizada en Flutter inspirada en el famoso juego de palabras "Wordle". Los jugadores deben adivinar una palabra al azar con limitados intentos a través de una serie de pistas.
 
-Es una aplicación orientada a dispositivos móviles donde los jugadores pueden jugar mediante una interfaz sencilla e intuitiva.
+Es una aplicación orientada a dispositivos móviles (con posibilidad de porteo a ordenadores o web) dónde los jugadores dispondrán de una interfaz sencilla e intuitiva disponible en distintos idiomas y posibilidades de personalización.
 
-**Descargar** haciendo click sobre la siguiente imagen:
+**Descargar APK** haciendo click sobre la siguiente imagen:
 
 
 <a href="https://github.com/jcmh05/wordleDSDM/raw/main/wordel.apk">
     <img src="https://github.com/jcmh05/wordleDSDM/raw/main/capturas/download.png" width="200" alt="Descargar APK">
 </a>
+
+
 ## 📸 Capturas
 
 <div style="display: flex; justify-content: space-between;">
